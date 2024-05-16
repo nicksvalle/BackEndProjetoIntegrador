@@ -15,9 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto_integrador.projeto_integrador.entity.TeacherEntity;
 import com.projeto_integrador.projeto_integrador.repository.TeacherRepository;
+import com.projeto_integrador.projeto_integrador.usecases.CreateTeacher;
 import com.projeto_integrador.projeto_integrador.usecases.DeleteTeacherById;
 import com.projeto_integrador.projeto_integrador.usecases.GetTeacherById;
 import com.projeto_integrador.projeto_integrador.usecases.PutTeacherById;
+
+import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("teacher")
@@ -25,6 +28,9 @@ public class TeacherController {
     
     @Autowired
     TeacherRepository repository;
+
+    @Autowired
+    CreateTeacher createTeacher;
 
     @Autowired
     GetTeacherById getTeacherById;
@@ -36,8 +42,13 @@ public class TeacherController {
     DeleteTeacherById deleteTeacherById;
 
     @PostMapping("/")
-    public TeacherEntity create(@RequestBody TeacherEntity teacherEntity) {
-        return this.repository.save(teacherEntity);
+    public ResponseEntity<Object> create(@Valid @RequestBody TeacherEntity teacherEntity) {
+        try {
+            var result = this.createTeacher.execute(teacherEntity);
+            return ResponseEntity.ok().body(result);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @GetMapping("/")
@@ -47,19 +58,19 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherEntity> getById(@PathVariable long id){
+    public ResponseEntity<TeacherEntity> getById(@Valid @PathVariable long id){
         var teacher = this.getTeacherById.execute(id);
         return ResponseEntity.ok().body(teacher);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherEntity> putTeacher(@RequestBody TeacherEntity teacherEntity, @PathVariable Long id) {
+    public ResponseEntity<TeacherEntity> putTeacher(@Valid @RequestBody TeacherEntity teacherEntity, @PathVariable Long id) {
         var updatedTeacher = this.putTeacherById.execute(id, teacherEntity);
         return ResponseEntity.ok().body(updatedTeacher);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTeacher(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteTeacher(@Valid @PathVariable Long id) {
         this.deleteTeacherById.execute(id);
         return ResponseEntity.ok().build();
     }

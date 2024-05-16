@@ -37,12 +37,12 @@ public class TeacherEntity {
     private String teacher_name;
 
     @NotBlank
-    @Email(message = "O campo (institutional_email) deve conter um email válido")
+    @Email(message = "The field (institutional) must have a valid institutional email")
     @Column(name = "Institutional_Email")
-    private String institutional_email;
+    private String institutionalEmail;
 
     @NotBlank
-    @Email(message = "O campo (personal_email) deve conter um email válido")
+    @Email(message = "The field (personal_email) must have a valid personal email")
     @Column(name = "Personal_Email")
     private String personal_email;
 

@@ -19,7 +19,7 @@ public class PutTeacherById {
             () -> new EntityNotFoundException("Teacher not found")
         );
         updateTeacher.setTeacher_name(teacherEntity.getTeacher_name());
-        updateTeacher.setInstitutional_email(teacherEntity.getInstitutional_email());
+        updateTeacher.setInstitutionalEmail(teacherEntity.getInstitutionalEmail());
         updateTeacher.setPersonal_email(teacherEntity.getPersonal_email());
         updateTeacher.setTeacher_password(teacherEntity.getTeacher_password());
         updateTeacher.setPersonal_phone(teacherEntity.getPersonal_phone());
