@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.controller;
+package com.projeto_integrador.projeto_integrador.modules.teacher.controller;
 
 import java.util.List;
 
@@ -13,13 +13,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto_integrador.projeto_integrador.entity.TeacherEntity;
-import com.projeto_integrador.projeto_integrador.repository.TeacherRepository;
-import com.projeto_integrador.projeto_integrador.usecases.CreateTeacher;
-import com.projeto_integrador.projeto_integrador.usecases.DeleteTeacherById;
-import com.projeto_integrador.projeto_integrador.usecases.GetTeacherById;
-import com.projeto_integrador.projeto_integrador.usecases.PutTeacherById;
+import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
+import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
+import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.CreateTeacher;
+import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.DeleteTeacherById;
+import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.GetAllTeachers;
+import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.GetTeacherById;
+import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.PutTeacherById;
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -31,6 +33,9 @@ public class TeacherController {
 
     @Autowired
     CreateTeacher createTeacher;
+
+    @Autowired
+    GetAllTeachers getAllTeachers;
 
     @Autowired
     GetTeacherById getTeacherById;
@@ -53,20 +58,34 @@ public class TeacherController {
 
     @GetMapping("/")
     public ResponseEntity<List<TeacherEntity>> getAllTeachers() {
-        var AllTeachers = repository.findAll();
-        return ResponseEntity.ok(AllTeachers);
+       try {
+            var result = this.getAllTeachers.execute();
+            return ResponseEntity.ok().body(result);
+       } catch (Exception e) {
+            throw new EntityNotFoundException("Teacher not Register");
+       }
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TeacherEntity> getById(@Valid @PathVariable long id){
+       try {
         var teacher = this.getTeacherById.execute(id);
         return ResponseEntity.ok().body(teacher);
+       } catch (Exception e) {
+            throw new EntityNotFoundException("Teacher not found");
+       }
+        
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TeacherEntity> putTeacher(@Valid @RequestBody TeacherEntity teacherEntity, @PathVariable Long id) {
-        var updatedTeacher = this.putTeacherById.execute(id, teacherEntity);
-        return ResponseEntity.ok().body(updatedTeacher);
+        try {
+            var updatedTeacher = this.putTeacherById.execute(id, teacherEntity);
+            return ResponseEntity.ok().body(updatedTeacher);
+        } catch (Exception e) {
+            throw new EntityNotFoundException("Teacher not found");
+        }
+        
     }
 
     @DeleteMapping("/{id}")

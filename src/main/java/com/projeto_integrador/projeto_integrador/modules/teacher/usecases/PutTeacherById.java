@@ -1,10 +1,10 @@
-package com.projeto_integrador.projeto_integrador.usecases;
+package com.projeto_integrador.projeto_integrador.modules.teacher.usecases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projeto_integrador.projeto_integrador.entity.TeacherEntity;
-import com.projeto_integrador.projeto_integrador.repository.TeacherRepository;
+import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
+import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 

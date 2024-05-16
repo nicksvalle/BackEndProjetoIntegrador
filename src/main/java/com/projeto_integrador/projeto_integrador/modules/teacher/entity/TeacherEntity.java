@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.entity;
+package com.projeto_integrador.projeto_integrador.modules.teacher.entity;
 
 import java.time.LocalDateTime;
 
@@ -47,7 +47,7 @@ public class TeacherEntity {
     private String personal_email;
 
     @NotBlank
-    @Length(min = 8, max = 100)
+    @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
     @Column(name = "Teacher_Password")
     private String teacher_password;
 
