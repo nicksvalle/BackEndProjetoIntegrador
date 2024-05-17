@@ -24,47 +24,47 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "tbl_teachers")
+@Entity(name = "teachers")
 public class TeacherEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID_Teacher")
+    @Column(name = "teacher_id")
     private Long id;
 
     @NotBlank
-    @Column(name = "Teacher_Name")
+    @Column(name = "teacher_name")
     private String teacher_name;
 
     @NotBlank
     @Email(message = "The field (institutional) must have a valid institutional email")
-    @Column(name = "Institutional_Email")
+    @Column(name = "institutional_email")
     private String institutionalEmail;
 
     @NotBlank
     @Email(message = "The field (personal_email) must have a valid personal email")
-    @Column(name = "Personal_Email")
+    @Column(name = "personal_email")
     private String personal_email;
 
     @NotBlank
     @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
-    @Column(name = "Teacher_Password")
+    @Column(name = "teacher_password")
     private String teacher_password;
 
     @NotBlank
-    @Column(name = "Personal_Phone")
+    @Column(name = "personal_phone")
     private String personal_phone;
 
     @NotBlank
-    @Column(name = "Business_Phone")
+    @Column(name = "business_phone")
     private String business_phone;
 
     @NotBlank
-    @Column(name = "Research_Line")
+    @Column(name = "research_line")
     private String research_line;
 
     @NotBlank
-    @Column(name = "Teacher_Area")
+    @Column(name = "teacher_area")
     private String teacher_area;
 
     @CreationTimestamp

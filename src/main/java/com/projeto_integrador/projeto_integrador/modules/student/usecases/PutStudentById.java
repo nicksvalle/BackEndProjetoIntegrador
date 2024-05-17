@@ -5,8 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
-import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
-import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
+
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -22,7 +21,7 @@ public class PutStudentById {
         );
         updateStudent.setStudent_name(studentEntity.getStudent_name());
         updateStudent.setInstitutionalEmail(studentEntity.getInstitutionalEmail());
-        updateStudent.setStudent_password(studentEntity.getStudent_password());
+        updateStudent.setStudentPassword(studentEntity.getStudentPassword());
 
         return this.repository.save(updateStudent);
     }

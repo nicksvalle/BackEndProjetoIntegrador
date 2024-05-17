@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
-import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
-import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
+
 
 import jakarta.persistence.EntityNotFoundException;
 

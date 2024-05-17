@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto_integrador.projeto_integrador.modules.student.dto.LoginRequest;
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
+import com.projeto_integrador.projeto_integrador.modules.student.usecases.AuthenticateStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.CreateStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.DeleteStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.GetAllStudents;
@@ -25,7 +27,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("student")
+@RequestMapping("/student") // Ajuste aqui, adicione barra inicial
 public class StudentController {
     
     @Autowired
@@ -45,6 +47,8 @@ public class StudentController {
 
     @Autowired
     DeleteStudentUseCase deleteStudentById;
+
+    
 
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody StudentEntity studentEntity) {
@@ -67,7 +71,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentEntity> getById(@Valid @PathVariable long id){
+    public ResponseEntity<StudentEntity> getById(@Valid @PathVariable Long id){
        try {
         var student = this.getStudentById.execute(id);
         return ResponseEntity.ok().body(student);
@@ -94,5 +98,5 @@ public class StudentController {
         return ResponseEntity.ok().build();
     }
 
-
+    
 }
