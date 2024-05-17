@@ -26,7 +26,7 @@ public class AuthenticateStudentUseCase {
                 throw new Exception("Invalid password");
             }
         } else {
-            throw new Exception("Student not found");
+            throw new Exception("Invalid Email");
         }
     }
 }
