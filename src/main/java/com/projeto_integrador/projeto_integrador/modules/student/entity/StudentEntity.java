@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@EqualsAndHashCode(of = "id_student")
+@EqualsAndHashCode(of = "idStudent")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "students")
@@ -26,11 +26,11 @@ public class StudentEntity {
     @Id
     @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_student;
+    private Long idStudent;
 
     @NotBlank
     @Column(name = "student_name")
-    private String student_name;
+    private String studentName;
    
     @NotBlank
     @Email

@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
 
-import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class AuthenticateStudentUseCase {

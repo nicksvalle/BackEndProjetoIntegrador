@@ -18,13 +18,14 @@ public class PutTeacherById {
         TeacherEntity updateTeacher = this.teacherRepository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Teacher not found")
         );
-        updateTeacher.setTeacher_name(teacherEntity.getTeacher_name());
+        updateTeacher.setTeacherName(teacherEntity.getTeacherName());
         updateTeacher.setInstitutionalEmail(teacherEntity.getInstitutionalEmail());
-        updateTeacher.setPersonal_email(teacherEntity.getPersonal_email());
-        updateTeacher.setTeacher_password(teacherEntity.getTeacher_password());
-        updateTeacher.setPersonal_phone(teacherEntity.getPersonal_phone());
-        updateTeacher.setTeacher_area(teacherEntity.getTeacher_area());
-        updateTeacher.setTeacher_area(teacherEntity.getTeacher_area());
+        updateTeacher.setPersonalEmail(teacherEntity.getPersonalEmail());
+        updateTeacher.setTeacherPassword(teacherEntity.getTeacherPassword());
+        updateTeacher.setPersonalPhone(teacherEntity.getPersonalPhone());
+        updateTeacher.setBusinessPhone(teacherEntity.getBusinessPhone());
+        updateTeacher.setResearchLine(teacherEntity.getResearchLine());
+        updateTeacher.setTeacherArea(teacherEntity.getTeacherArea());
 
 
         return this.teacherRepository.save(updateTeacher);

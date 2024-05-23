@@ -19,7 +19,7 @@ public class PutStudentById {
         StudentEntity updateStudent = this.repository.findById(id).orElseThrow(
             () -> new EntityNotFoundException("Student not found")
         );
-        updateStudent.setStudent_name(studentEntity.getStudent_name());
+        updateStudent.setStudentName(studentEntity.getStudentName());
         updateStudent.setInstitutionalEmail(studentEntity.getInstitutionalEmail());
         updateStudent.setStudentPassword(studentEntity.getStudentPassword());
 

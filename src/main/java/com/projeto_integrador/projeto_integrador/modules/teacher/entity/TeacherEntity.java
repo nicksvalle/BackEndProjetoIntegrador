@@ -21,7 +21,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = "TeacherId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "teachers")
@@ -30,11 +30,11 @@ public class TeacherEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "teacher_id")
-    private Long id;
+    private Long TeacherId;
 
     @NotBlank
     @Column(name = "teacher_name")
-    private String teacher_name;
+    private String teacherName;
 
     @NotBlank
     @Email(message = "The field (institutional) must have a valid institutional email")
@@ -44,28 +44,28 @@ public class TeacherEntity {
     @NotBlank
     @Email(message = "The field (personal_email) must have a valid personal email")
     @Column(name = "personal_email")
-    private String personal_email;
+    private String personalEmail;
 
     @NotBlank
     @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
     @Column(name = "teacher_password")
-    private String teacher_password;
+    private String teacherPassword;
 
     @NotBlank
     @Column(name = "personal_phone")
-    private String personal_phone;
+    private String personalPhone;
 
     @NotBlank
     @Column(name = "business_phone")
-    private String business_phone;
+    private String businessPhone;
 
     @NotBlank
     @Column(name = "research_line")
-    private String research_line;
+    private String researchLine;
 
     @NotBlank
     @Column(name = "teacher_area")
-    private String teacher_area;
+    private String teacherArea;
 
     @CreationTimestamp
     private LocalDateTime create_at;

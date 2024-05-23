@@ -13,10 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto_integrador.projeto_integrador.modules.student.dto.LoginRequest;
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
-import com.projeto_integrador.projeto_integrador.modules.student.usecases.AuthenticateStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.CreateStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.DeleteStudentUseCase;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.GetAllStudents;
