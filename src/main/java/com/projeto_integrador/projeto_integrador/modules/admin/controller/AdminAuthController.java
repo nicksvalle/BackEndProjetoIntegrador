@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.student.controller;
+package com.projeto_integrador.projeto_integrador.modules.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -7,23 +7,23 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.projeto_integrador.projeto_integrador.modules.student.dto.LoginRequest;
-import com.projeto_integrador.projeto_integrador.modules.student.usecases.AuthenticateStudentUseCase;
+import com.projeto_integrador.projeto_integrador.modules.admin.dto.LoginRequest;
+import com.projeto_integrador.projeto_integrador.modules.admin.usecases.AuthenticateAdminUseCase;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("student")
-public class AuthController {
+@RequestMapping("admin")
+public class AdminAuthController {
     
     @Autowired
-    AuthenticateStudentUseCase authenticateStudent;
+    AuthenticateAdminUseCase authenticateAdmin;
     
     @PostMapping("/login")
         public ResponseEntity<Object> login(@Valid @RequestBody LoginRequest loginRequest) {
             try {
-                var student = authenticateStudent.execute(loginRequest.getInstitutionalEmail(), loginRequest.getStudentPassword());
-                return ResponseEntity.ok().body(student);
+                var admin = authenticateAdmin.execute(loginRequest.getEmail(), loginRequest.getAdminPassword());
+                return ResponseEntity.ok().body(admin);
             } catch (Exception e) {
                 return ResponseEntity.badRequest().body(e.getMessage());
             }
