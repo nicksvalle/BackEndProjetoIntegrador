@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.rooms.usecases;
+package com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room;
 
 import java.util.List;
 

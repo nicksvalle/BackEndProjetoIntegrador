@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
 import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
-import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.CreateRoom;
-import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.DeleteRoomById;
-import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.GetAllRooms;
-import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.GetRoomById;
-import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.PutRoomById;
+import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room.CreateRoom;
+import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room.DeleteRoomById;
+import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room.GetAllRooms;
+import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room.GetRoomById;
+import com.projeto_integrador.projeto_integrador.modules.rooms.usecases.room.PutRoomById;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
