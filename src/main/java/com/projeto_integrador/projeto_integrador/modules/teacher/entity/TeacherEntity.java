@@ -47,23 +47,27 @@ public class TeacherEntity {
     private String personalEmail;
 
     @NotBlank
-    @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
+    @Length(min = 8, max = 255, message = "must have between 8 to 255 characters")
     @Column(name = "teacher_password")
     private String teacherPassword;
 
     @NotBlank
+    @Length(max = 15, message = "the field [personalPhone] must have between 15 characters")
     @Column(name = "personal_phone")
     private String personalPhone;
 
     @NotBlank
+    @Length(max = 15, message = "the field [businessPhone] must have between 15 characters")
     @Column(name = "business_phone")
     private String businessPhone;
 
     @NotBlank
+    @Length(max = 50, message = "the field [researchLine] must have between 50 characters")
     @Column(name = "research_line")
     private String researchLine;
 
     @NotBlank
+    @Length(max = 50, message = "the field [teacherArea] must have between 50 characters")
     @Column(name = "teacher_area")
     private String teacherArea;
 

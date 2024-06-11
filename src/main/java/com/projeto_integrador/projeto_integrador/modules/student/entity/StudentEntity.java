@@ -29,6 +29,7 @@ public class StudentEntity {
     private Long idStudent;
 
     @NotBlank
+    @Length(max = 100, message = "the fied [studentName] must have 100 characters")
     @Column(name = "student_name")
     private String studentName;
    
@@ -38,7 +39,7 @@ public class StudentEntity {
     private String institutionalEmail;
 
     @NotBlank
-    @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
+    @Length(min = 8, max = 255, message = "the field [studentPassword] must have between 8 to 100 characters")
     @Column(name = "student_password")
     private String studentPassword;
 }

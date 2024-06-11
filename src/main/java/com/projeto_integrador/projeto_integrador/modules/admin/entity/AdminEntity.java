@@ -29,6 +29,7 @@ public class AdminEntity {
     private Long idAdmin;
 
     @NotBlank
+    @Length(max = 100, message = "must have 100 characters")
     @Column(name = "admin_name")
     private String adminName;
    

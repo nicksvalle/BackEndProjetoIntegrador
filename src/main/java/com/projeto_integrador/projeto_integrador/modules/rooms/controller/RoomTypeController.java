@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("rooms")
-public class RoomTypeTypeController {
+public class RoomTypeController {
     @Autowired
     RoomTypeRepository repository;
 

@@ -32,12 +32,12 @@ public class SubjectEntity {
     private Long subjectId;
 
     @NotBlank
-    @Length(max = 100, message = "o máximo de caracteres do campo [subject_name] são 100")
+    @Length(max = 100, message = "the field [subject_name] must have 100 characters")
     @Column(name = "subject_name")
     private String subjectName;
 
     @NotBlank
-    @Length(max = 15, message = "o máximo de caracteres do campo [subject_hours] são 15")
+    @Length(max = 15, message = "the field [subject_hours] must have 15 characters")
     @Column(name = "subject_hours")
     private String subjectHours;
 

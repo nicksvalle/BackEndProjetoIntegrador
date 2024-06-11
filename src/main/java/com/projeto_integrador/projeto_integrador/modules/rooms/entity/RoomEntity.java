@@ -32,22 +32,22 @@ public class RoomEntity {
     private Long roomId;
 
     @NotBlank
-    @Length(max = 100, message = "o máximo de caracteres do campo [roomCapacity] são 100")
+    @Length(max = 11, message = "o máximo de caracteres do campo [roomCapacity] são 11")
     @Column(name = "room_capacity")
     private String roomCapacity;
 
     @NotBlank
-    @Length(max = 15, message = "o máximo de caracteres do campo [roomFloor] são 15")
+    @Length(max = 100, message = "o máximo de caracteres do campo [roomFloor] são 100")
     @Column(name = "room_floor")
     private String roomFloor;
 
     @NotBlank
-    @Length(max = 15, message = "o máximo de caracteres do campo [roomResources] são 15")
+    @Length(max = 200, message = "o máximo de caracteres do campo [roomResources] são 200")
     @Column(name = "room_resources")
     private String roomResources;
 
     @NotBlank
-    @Length(max = 15, message = "o máximo de caracteres do campo [roomAvailability] são 15")
+    @Length(max = 1, message = "o máximo de caracteres do campo [roomAvailability] são 1")
     @Column(name = "room_availability")
     private String roomAvailability;
 
