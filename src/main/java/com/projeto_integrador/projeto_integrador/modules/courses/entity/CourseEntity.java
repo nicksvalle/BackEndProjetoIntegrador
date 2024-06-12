@@ -1,6 +1,7 @@
 package com.projeto_integrador.projeto_integrador.modules.courses.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -45,6 +46,9 @@ public class CourseEntity {
     @Length(max = 20, message = "o máximo de caracteres do campo [coursePeriod] são 20")
     @Column(name = "course_period")
     private String coursePeriod;
+
+    @Column(name="course_subjects")
+    private List<Long> courseSubjects;
 
     @CreationTimestamp
     private LocalDateTime create_at;

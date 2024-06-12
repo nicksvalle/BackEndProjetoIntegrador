@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -70,6 +71,9 @@ public class TeacherEntity {
     @Length(max = 50, message = "the field [teacherArea] must have between 50 characters")
     @Column(name = "teacher_area")
     private String teacherArea;
+
+    @Column(name="teacher_subjects")
+    private List<Long> teacherSubjects;
 
     @CreationTimestamp
     private LocalDateTime create_at;

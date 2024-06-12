@@ -78,15 +78,15 @@ public class CourseController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CourseEntity> putCourse(@Valid @RequestBody CourseEntity courseEntity, @PathVariable Long id) {
+    public ResponseEntity<?> putCourse(@Valid @RequestBody CourseEntity courseEntity, @PathVariable Long id) {
         try {
             var updatedCourse = this.putCourseById.execute(id, courseEntity);
             return ResponseEntity.ok().body(updatedCourse);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Course not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
-        
     }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@Valid @PathVariable Long id) {

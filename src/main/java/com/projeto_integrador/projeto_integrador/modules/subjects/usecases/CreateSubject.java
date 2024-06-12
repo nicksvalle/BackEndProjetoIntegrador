@@ -1,5 +1,6 @@
 package com.projeto_integrador.projeto_integrador.modules.subjects.usecases;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

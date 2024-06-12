@@ -78,12 +78,12 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TeacherEntity> putTeacher(@Valid @RequestBody TeacherEntity teacherEntity, @PathVariable Long id) {
+    public ResponseEntity<?> putTeacher(@Valid @RequestBody TeacherEntity teacherEntity, @PathVariable Long id) {
         try {
             var updatedTeacher = this.putTeacherById.execute(id, teacherEntity);
             return ResponseEntity.ok().body(updatedTeacher);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Teacher not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         
     }
