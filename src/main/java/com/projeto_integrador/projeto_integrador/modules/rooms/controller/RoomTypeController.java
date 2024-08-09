@@ -25,7 +25,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("rooms")
+@RequestMapping("roomsType")
 public class RoomTypeController {
     @Autowired
     RoomTypeRepository repository;
