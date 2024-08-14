@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.student.entity.StudentEntity;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
@@ -26,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/student") // Ajuste aqui, adicione barra inicial
+@CrossOrigin
 public class StudentController {
     
     @Autowired

@@ -1,10 +1,10 @@
 package com.projeto_integrador.projeto_integrador.modules.teacher.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-import java.util.List;
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;

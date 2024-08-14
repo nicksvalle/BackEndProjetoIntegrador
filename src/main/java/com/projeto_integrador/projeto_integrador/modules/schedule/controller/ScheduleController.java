@@ -1,8 +1,10 @@
 package com.projeto_integrador.projeto_integrador.modules.schedule.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
 import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
@@ -26,6 +29,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("schedule")
+@CrossOrigin
 public class ScheduleController {
     
     @Autowired
@@ -57,24 +61,23 @@ public class ScheduleController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<ScheduleEntity>> getAllSchedules() {
-       try {
-            var result = this.getAllSchedules.execute();
-            return ResponseEntity.ok().body(result);
-       } catch (Exception e) {
-            throw new EntityNotFoundException("Schedule not Registered");
-       }
+    public ResponseEntity<?> getAllSchedules() {
+        try {
+            List<Map<String, Object>> schedules = getAllSchedules.execute();
+            return ResponseEntity.ok().body(schedules);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ScheduleEntity> getById(@Valid @PathVariable long id){
-       try {
-        var time = this.getScheduleById.execute(id);
-        return ResponseEntity.ok().body(time);
-       } catch (Exception e) {
-            throw new EntityNotFoundException("Schedule not found");
-       }
-        
+    public ResponseEntity<Map<String, Object>> getById(@PathVariable long id) {
+        try {
+            var scheduleMap = this.getScheduleById.execute(id);
+            return ResponseEntity.ok().body(scheduleMap);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PutMapping("/{id}")

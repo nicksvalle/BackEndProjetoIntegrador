@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
 import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
@@ -26,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("rooms")
+@CrossOrigin
 public class RoomController {
     
     @Autowired
@@ -62,7 +64,7 @@ public class RoomController {
             var result = this.getAllRooms.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Room not Register");
+            throw new EntityNotFoundException("Room not Registered");
        }
     }
 

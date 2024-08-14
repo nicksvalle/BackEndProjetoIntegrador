@@ -19,7 +19,7 @@ public class GetAllSubjects {
     public List<SubjectEntity> execute() {
         var allSubjects = subjectRepository.findAll();
         if (allSubjects.isEmpty()) {
-            throw new EntityNotFoundException("Subject not Register");
+            throw new EntityNotFoundException("Subject not Registered");
         }
         return allSubjects;
     }

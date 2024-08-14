@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -27,15 +29,19 @@ public class ScheduleEntity {
     @Column(name = "schedule_id")
     private Long ScheduleId;
 
+    @NotNull
     @Column(name = "teacher")
     private Long teacher;
 
+    @NotNull
     @Column(name = "subject")
     private Long subject;
 
+    @NotNull
     @Column(name = "time")
     private Long time;
 
+    @NotNull
     @Column(name = "room")
     private Long room;
 

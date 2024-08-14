@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomTypeEntity;
 import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomTypeRepository;
@@ -25,7 +26,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("roomsType")
+@RequestMapping("roomType")
+@CrossOrigin
 public class RoomTypeController {
     @Autowired
     RoomTypeRepository repository;
@@ -61,7 +63,7 @@ public class RoomTypeController {
             var result = this.getAllRoomTypes.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("RoomType not Register");
+            throw new EntityNotFoundException("RoomType not Registered");
        }
     }
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
@@ -26,6 +27,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("time")
+@CrossOrigin
 public class TimeController {
     
     @Autowired

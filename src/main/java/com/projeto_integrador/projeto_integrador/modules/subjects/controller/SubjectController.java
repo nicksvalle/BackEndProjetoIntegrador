@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.subjects.entity.SubjectEntity;
 import com.projeto_integrador.projeto_integrador.modules.subjects.repository.SubjectRepository;
@@ -25,7 +26,8 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("subjects")
+@RequestMapping("subject")
+@CrossOrigin
 public class SubjectController {
     
     @Autowired

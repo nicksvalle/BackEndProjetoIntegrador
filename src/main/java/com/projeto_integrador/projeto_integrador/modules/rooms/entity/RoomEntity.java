@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "roomId")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "rooms")
+@Entity(name = "room")
 public class RoomEntity {
     
     @Id

@@ -1,8 +1,10 @@
 package com.projeto_integrador.projeto_integrador.modules.teacher.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
 import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
@@ -26,6 +29,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("teacher")
+@CrossOrigin
 public class TeacherController {
     
     @Autowired
@@ -57,24 +61,24 @@ public class TeacherController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<TeacherEntity>> getAllTeachers() {
-       try {
-            var result = this.getAllTeachers.execute();
-            return ResponseEntity.ok().body(result);
-       } catch (Exception e) {
-            throw new EntityNotFoundException("Teacher not Register");
-       }
+    public ResponseEntity<?> getAllTeachers() {
+        try {
+            List<Map<String, Object>> teachers = getAllTeachers.execute();
+            return ResponseEntity.ok().body(teachers);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
+
     @GetMapping("/{id}")
-    public ResponseEntity<TeacherEntity> getById(@Valid @PathVariable long id){
-       try {
-        var teacher = this.getTeacherById.execute(id);
-        return ResponseEntity.ok().body(teacher);
-       } catch (Exception e) {
-            throw new EntityNotFoundException("Teacher not found");
-       }
-        
+    public ResponseEntity<Map<String, Object>> getById(@PathVariable long id) {
+        try {
+            var teacherMap = this.getTeacherById.execute(id);
+            return ResponseEntity.ok().body(teacherMap);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PutMapping("/{id}")

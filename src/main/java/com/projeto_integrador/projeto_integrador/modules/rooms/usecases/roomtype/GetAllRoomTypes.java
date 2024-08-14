@@ -19,7 +19,7 @@ public class GetAllRoomTypes {
     public List<RoomTypeEntity> execute() {
         var allRoomTypes = roomRepository.findAll();
         if (allRoomTypes.isEmpty()) {
-            throw new EntityNotFoundException("RoomType not Register");
+            throw new EntityNotFoundException("RoomType not Registered");
         }
         return allRoomTypes;
     }
