@@ -2,9 +2,10 @@ package com.projeto_integrador.projeto_integrador.modules.schedule.usecases;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 
-import com.projeto_integrador.projeto_integrador.modules.schedule.Validation;
+import com.projeto_integrador.projeto_integrador.modules.schedule.ScheduleValidation;
 import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
 import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
 
@@ -17,11 +18,12 @@ public class PutScheduleById {
     ScheduleRepository repository;
 
     @Autowired
-    private Validation validation;
+    private ScheduleValidation validation;
     
     public ScheduleEntity execute(Long id, ScheduleEntity scheduleEntity){
+        
         ScheduleEntity updateSchedule = this.repository.findById(id).orElseThrow(
-            () -> new EntityNotFoundException("Schedule not found")
+            () -> new EntityNotFoundException("Schedule not found with id: " + id)
         );
 
         Long subjectId = scheduleEntity.getSubject();
@@ -36,10 +38,14 @@ public class PutScheduleById {
         Long roomId = scheduleEntity.getRoom();
         validation.validateRoomExist(roomId);
 
+        Long courseId = scheduleEntity.getCourse();
+        validation.validateCourseExist(courseId);
+
         updateSchedule.setTime(scheduleEntity.getTime());
         updateSchedule.setTeacher(scheduleEntity.getTeacher());
         updateSchedule.setSubject(scheduleEntity.getSubject());
         updateSchedule.setRoom(scheduleEntity.getRoom());
+        updateSchedule.setCourse(scheduleEntity.getCourse());
 
 
         return this.repository.save(updateSchedule);

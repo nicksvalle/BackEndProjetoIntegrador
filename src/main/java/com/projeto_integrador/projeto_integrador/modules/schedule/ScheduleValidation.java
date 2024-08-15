@@ -13,9 +13,11 @@ import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherE
 import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
+import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
+import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEntity;
 
 @Service
-public class Validation {
+public class ScheduleValidation {
     @Autowired
     private TimeRepository timeRepository;
 
@@ -27,6 +29,9 @@ public class Validation {
 
     @Autowired
     private RoomRepository roomRepository;
+
+    @Autowired
+    private CourseRepository courseRepository;
 
     public void validateTimeExist(Long timeId) {
         if (timeId != null) {
@@ -60,6 +65,15 @@ public class Validation {
             Optional<RoomEntity> room = roomRepository.findById(roomId);
             if (room.isEmpty()) {
                 throw new RuntimeException("Room not found with ID: " + roomId);
+            }
+        }
+    }
+
+    public void validateCourseExist(Long courseId) {
+        if (courseId != null) {
+            Optional<CourseEntity> course = courseRepository.findById(courseId);
+            if (course.isEmpty()) {
+                throw new RuntimeException("Course not found with ID: " + courseId);
             }
         }
     }

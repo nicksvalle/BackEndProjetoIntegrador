@@ -18,6 +18,7 @@ import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherE
 import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
+import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -35,6 +36,9 @@ public class GetAllSchedules {
 
     @Autowired
     TimeRepository timeRepository;
+
+    @Autowired
+    CourseRepository courseRepository;
     
 
     public List<Map<String, Object>> execute() {
@@ -55,6 +59,7 @@ public class GetAllSchedules {
         Long subjectId = schedule.getSubject();
         Long teacherId = schedule.getTeacher();
         Long timeId = schedule.getTime();
+        Long courseId = schedule.getCourse();
 
         Optional<SubjectEntity> subject = subjectRepository.findById(subjectId);
         String subjectName = subject.map(SubjectEntity::getSubjectName)
@@ -68,10 +73,15 @@ public class GetAllSchedules {
         String timeText = time.map(t -> String.format("%s - %s (%s)", t.getStartTime(), t.getEndTime(), t.getWeekDay()))
                                     .orElse("Unknown Time");
 
+        Optional<CourseEntity> course = courseRepository.findById(courseId);
+        String courseText = course.map(c -> String.format("%s - %s", c.getCourseName(), c.getCourseSemester()))
+                                    .orElse("Unknown Course");
+
 
         result.put("subject", subjectName);
         result.put("teacher", teacherName);
         result.put("time", timeText);
+        result.put("course", courseText);
         return result;
     }
 }

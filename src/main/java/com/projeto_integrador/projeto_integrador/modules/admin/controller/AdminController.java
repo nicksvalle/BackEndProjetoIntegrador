@@ -21,11 +21,19 @@ import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAllAd
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAdminById;
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.PutAdminById;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("/admin") 
+@Tag(name = "Administrador", description = "Informações do Administrador")
 public class AdminController {
     
     @Autowired
@@ -49,6 +57,13 @@ public class AdminController {
     
 
     @PostMapping("/")
+    @Operation(summary = "Cadastro de administrador", description = "Essa função é responsável por cadastrar um administrador")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+          @Content(schema = @Schema(implementation = AdminEntity.class))
+      }),
+      @ApiResponse(responseCode = "400", description = "Administrador já existe")
+    })
     public ResponseEntity<Object> create(@Valid @RequestBody AdminEntity adminEntity) {
         try {
             var result = this.createAdmin.execute(adminEntity);
@@ -59,6 +74,13 @@ public class AdminController {
     }
 
     @GetMapping("/")
+    @Operation(summary = "Perfil do Administrador", description = "Essa função é responsável por buscar as informações do perfil do administrador")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+          @Content(schema = @Schema(implementation = AdminEntity.class))
+      }),
+      @ApiResponse(responseCode = "400", description = "Admin not Found")
+    })
     public ResponseEntity<List<AdminEntity>> getAllAdmins() {
        try {
             var result = this.getAllAdmins.execute();
@@ -68,7 +90,15 @@ public class AdminController {
        }
     }
 
+    
     @GetMapping("/{id}")
+    @Operation(summary = "Perfil do Administrador por ID", description = "Essa função é responsável por buscar as informações do perfil do administrador filtrado por ID")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+          @Content(schema = @Schema(implementation = AdminEntity.class))
+      }),
+      @ApiResponse(responseCode = "400", description = "Admin not found")
+    })
     public ResponseEntity<AdminEntity> getById(@Valid @PathVariable Long id){
        try {
         var admin = this.getAdminById.execute(id);
@@ -79,7 +109,15 @@ public class AdminController {
         
     }
 
+    
     @PutMapping("/{id}")
+    @Operation(summary = "Alteração do Administrador", description = "Essa função é responsável por alterar/editar as informações de um administrador por ID")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+          @Content(schema = @Schema(implementation = AdminEntity.class))
+      }),
+      @ApiResponse(responseCode = "400", description = "Admin not found")
+    })
     public ResponseEntity<AdminEntity> putAdmin(@Valid @RequestBody AdminEntity adminEntity, @PathVariable Long id) {
         try {
             var updatedAdmin = this.putAdminById.execute(id, adminEntity);
@@ -91,6 +129,12 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
+    @Operation(summary = "Exclusão do Administrador", description = "Essa função é responsável por excluir um administrador por ID")
+    @ApiResponses({
+      @ApiResponse(responseCode = "200", content = {
+      }),
+      @ApiResponse(responseCode = "400", description = "Admin not found")
+    })
     public ResponseEntity<Void> deleteAdmin(@Valid @PathVariable Long id) {
         this.deleteAdminById.execute(id);
         return ResponseEntity.ok().build();

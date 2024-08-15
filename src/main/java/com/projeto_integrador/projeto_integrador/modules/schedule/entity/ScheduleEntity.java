@@ -41,9 +41,12 @@ public class ScheduleEntity {
     @Column(name = "time")
     private Long time;
 
-    @NotNull
     @Column(name = "room")
     private Long room;
+
+    @NotNull
+    @Column(name = "course")
+    private Long course;
 
     @CreationTimestamp
     private LocalDateTime create_at;

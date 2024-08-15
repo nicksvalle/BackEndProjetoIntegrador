@@ -81,12 +81,12 @@ public class ScheduleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ScheduleEntity> putTime(@Valid @RequestBody ScheduleEntity ScheduleEntity, @PathVariable Long id) {
+    public ResponseEntity<?> putSchedule(@Valid @RequestBody ScheduleEntity ScheduleEntity, @PathVariable Long id) {
         try {
             var updatedSchedule = this.putScheduleById.execute(id, ScheduleEntity);
             return ResponseEntity.ok().body(updatedSchedule);
-        } catch (Exception e) {
-            throw new EntityNotFoundException("Schedule not found");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
         
     }

@@ -2,6 +2,8 @@ package com.projeto_integrador.projeto_integrador.modules.admin.entity;
 
 import org.hibernate.validator.constraints.Length;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,15 +33,18 @@ public class AdminEntity {
     @NotBlank
     @Length(max = 100, message = "must have 100 characters")
     @Column(name = "admin_name")
+    @Schema(example = "Tadeu", requiredMode = RequiredMode.REQUIRED, description = "Nome do admin")
     private String adminName;
    
     @NotBlank
     @Email
     @Column(name = "email")
+    @Schema(example = "tadeumaffeis@gmail.com", requiredMode = RequiredMode.REQUIRED,  description = "Email do admin")
     private String email;
 
     @NotBlank
     @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")
     @Column(name = "admin_password")
+    @Schema(example = "12345678", requiredMode = RequiredMode.REQUIRED,  description = "Senha do admin")
     private String adminPassword;
 }

@@ -7,6 +7,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.Length;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Schema.RequiredMode;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,19 +37,23 @@ public class CourseEntity {
     @NotBlank
     @Length(max = 100, message = "o máximo de caracteres do campo [courseName] são 100")
     @Column(name = "course_name")
+    @Schema(example = "Desenvolvimento de Sistemas", requiredMode = RequiredMode.REQUIRED, description = "Nome do curso")
     private String courseName;
 
     @NotBlank
     @Length(max = 10, message = "o máximo de caracteres do campo [courseSemester] são 10")
     @Column(name = "course_semester")
+    @Schema(example = "1° Semestre", requiredMode = RequiredMode.REQUIRED, description = "Semestre/Ano do curso")
     private String courseSemester;
 
     @NotBlank
     @Length(max = 20, message = "o máximo de caracteres do campo [coursePeriod] são 20")
     @Column(name = "course_period")
+    @Schema(example = "Tarde", requiredMode = RequiredMode.REQUIRED, description = "Período do curso")
     private String coursePeriod;
 
     @Column(name="course_subjects")
+    @Schema(example = "Matérias", requiredMode = RequiredMode.REQUIRED, description = "Matérias do curso")
     private List<Long> courseSubjects;
 
     @CreationTimestamp

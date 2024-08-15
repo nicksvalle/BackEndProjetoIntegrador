@@ -1,6 +1,7 @@
 package com.projeto_integrador.projeto_integrador.modules.rooms.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.http.HttpStatus;
 
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
 import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
@@ -80,12 +82,12 @@ public class RoomController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RoomEntity> putRoom(@Valid @RequestBody RoomEntity roomEntity, @PathVariable Long id) {
+    public ResponseEntity<?> putRoom(@Valid @RequestBody RoomEntity roomEntity, @PathVariable Long id) {
         try {
             var updatedRoom = this.putRoomById.execute(id, roomEntity);
             return ResponseEntity.ok().body(updatedRoom);
-        } catch (Exception e) {
-            throw new EntityNotFoundException("Room not found");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
         
     }

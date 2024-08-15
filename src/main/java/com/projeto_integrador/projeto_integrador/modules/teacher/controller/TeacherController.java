@@ -86,8 +86,8 @@ public class TeacherController {
         try {
             var updatedTeacher = this.putTeacherById.execute(id, teacherEntity);
             return ResponseEntity.ok().body(updatedTeacher);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
         }
         
     }
