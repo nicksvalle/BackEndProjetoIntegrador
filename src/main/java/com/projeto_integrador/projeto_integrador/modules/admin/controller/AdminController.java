@@ -13,12 +13,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto_integrador.projeto_integrador.modules.admin.dto.AdminDTO;
 import com.projeto_integrador.projeto_integrador.modules.admin.entity.AdminEntity;
 import com.projeto_integrador.projeto_integrador.modules.admin.repository.AdminRepository;
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.CreateAdminUseCase;
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.DeleteAdminUseCase;
-import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAllAdmins;
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAdminById;
+import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAllAdmins;
 import com.projeto_integrador.projeto_integrador.modules.admin.usecases.PutAdminById;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +27,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -60,7 +60,7 @@ public class AdminController {
     @Operation(summary = "Cadastro de administrador", description = "Essa função é responsável por cadastrar um administrador")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
-          @Content(schema = @Schema(implementation = AdminEntity.class))
+          @Content(schema = @Schema(implementation = AdminDTO.class))
       }),
       @ApiResponse(responseCode = "400", description = "Administrador já existe")
     })
@@ -114,7 +114,7 @@ public class AdminController {
     @Operation(summary = "Alteração do Administrador", description = "Essa função é responsável por alterar/editar as informações de um administrador por ID")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
-          @Content(schema = @Schema(implementation = AdminEntity.class))
+          @Content(schema = @Schema(implementation = AdminDTO.class))
       }),
       @ApiResponse(responseCode = "400", description = "Admin not found")
     })
