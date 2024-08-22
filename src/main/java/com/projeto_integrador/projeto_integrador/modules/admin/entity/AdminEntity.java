@@ -38,9 +38,9 @@ public class AdminEntity {
    
     @NotBlank
     @Email
-    @Column(name = "email")
+    @Column(name = "admin_email")
     @Schema(example = "tadeumaffeis@gmail.com", requiredMode = RequiredMode.REQUIRED,  description = "Email do admin")
-    private String email;
+    private String adminEmail;
 
     @NotBlank
     @Length(min = 8, max = 100, message = "must have between 8 to 100 characters")

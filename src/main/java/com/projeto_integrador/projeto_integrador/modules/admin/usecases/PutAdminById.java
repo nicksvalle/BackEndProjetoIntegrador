@@ -20,7 +20,7 @@ public class PutAdminById {
             () -> new EntityNotFoundException("Admin not found")
         );
         updateAdmin.setAdminName(adminEntity.getAdminName());
-        updateAdmin.setEmail(adminEntity.getEmail());
+        updateAdmin.setAdminEmail(adminEntity.getAdminEmail());
         updateAdmin.setAdminPassword(adminEntity.getAdminPassword());
 
         return this.repository.save(updateAdmin);
