@@ -1,5 +1,6 @@
 package com.projeto_integrador.projeto_integrador.security;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,6 +15,25 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableMethodSecurity
 public class SecurityConfig {
 
+    @Autowired
+    SecurityFilter securityFilter;
+
+    private static final String[] PERMIT_ALL_LIST = {
+        "/swagger-ui/**",
+        "/v3/api-docs/**",
+        "/swagger-resources/**",
+        "/actuator/**"
+    };
+
+    private static final String[] PERMIT_TEMPORARILY = {
+        "/course/",
+        "/room/",
+        "/schedule/",
+        "/student",
+        "/subject",
+        "/teacher/",
+        "/time/"
+    };
 
     
     @Bean
@@ -22,10 +42,12 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> {
             auth.requestMatchers("/admin/").permitAll()
                 .requestMatchers("/auth/admin").permitAll()
-                .requestMatchers("/student/").permitAll();
+                .requestMatchers("/student/").permitAll()
+                .requestMatchers(PERMIT_ALL_LIST).permitAll()
+                .requestMatchers(PERMIT_TEMPORARILY).permitAll();
 
             auth.anyRequest().authenticated();
-        });
+        }).addFilterBefore(securityFilter, BasicAuthenticationFilter.class);;
     
     return http.build();
     }

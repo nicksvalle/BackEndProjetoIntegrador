@@ -100,14 +100,13 @@ public class RoomController {
       }),
       @ApiResponse(responseCode = "400", description = "Sala/Lab não existe")
     })
-    public ResponseEntity<RoomEntity> getById(@Valid @PathVariable long id){
-       try {
-        var room = this.getRoomById.execute(id);
-        return ResponseEntity.ok().body(room);
-       } catch (Exception e) {
-            throw new EntityNotFoundException("Room not found");
-       }
-        
+    public ResponseEntity<Map<String, Object>> getById(@PathVariable long id) {
+        try {
+            var roomMap = this.getRoomById.execute(id);
+            return ResponseEntity.ok().body(roomMap);
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", e.getMessage()));
+        }
     }
 
     @PutMapping("/{id}")

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@EqualsAndHashCode(of = "idAdmin")
+@EqualsAndHashCode(of = "adminId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "admin")
@@ -28,7 +28,7 @@ public class AdminEntity {
     @Id
     @Column(name = "admin_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idAdmin;
+    private Long adminId;
 
     @NotBlank
     @Length(max = 100, message = "must have 100 characters")
