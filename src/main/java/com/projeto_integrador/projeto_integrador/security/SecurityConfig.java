@@ -26,13 +26,13 @@ public class SecurityConfig {
     };
 
     private static final String[] PERMIT_TEMPORARILY = {
-        "/course/",
-        "/room/",
-        "/schedule/",
-        "/student",
-        "/subject",
-        "/teacher/",
-        "/time/"
+        // "/course/",
+        // "/room/",
+        // "/schedule/",
+        // "/student",
+        // "/subject",
+        // "/teacher/",
+        // "/time/"
     };
 
     
