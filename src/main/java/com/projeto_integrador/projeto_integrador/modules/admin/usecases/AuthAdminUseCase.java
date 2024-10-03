@@ -34,9 +34,6 @@ public class AuthAdminUseCase {
 
     public String execute(AuthAdminDTO authAdminDTO) throws AuthenticationException {
         logger.debug("Attempting to authenticate admin with email: {}", authAdminDTO.getAdminEmail());
-
-        // Verifica se o DTO contém email e senha
-
         
         if (authAdminDTO.getAdminEmail() == null || authAdminDTO.getAdminPassword() == null) {
             logger.error("Email or password is null");

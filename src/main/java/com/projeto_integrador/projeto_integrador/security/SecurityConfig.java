@@ -42,6 +42,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(auth -> {
             auth.requestMatchers("/admin/").permitAll()
                 .requestMatchers("/auth/admin").permitAll()
+                .requestMatchers("/teacher/auth").permitAll()
                 .requestMatchers("/student/").permitAll()
                 .requestMatchers(PERMIT_ALL_LIST).permitAll()
                 .requestMatchers(PERMIT_TEMPORARILY).permitAll();

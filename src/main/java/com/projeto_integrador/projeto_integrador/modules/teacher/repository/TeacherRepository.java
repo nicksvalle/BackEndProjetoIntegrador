@@ -8,5 +8,5 @@ import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherE
 
 public interface TeacherRepository extends JpaRepository<TeacherEntity, Long>{
     Optional<TeacherEntity> findByInstitutionalEmail(String institutionalEmail);
-
+    
 }

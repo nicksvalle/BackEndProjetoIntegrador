@@ -3,6 +3,7 @@ package com.projeto_integrador.projeto_integrador.modules.teacher.usecases;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 
@@ -21,6 +22,9 @@ public class CreateTeacher {
     @Autowired
     SubjectRepository subjectRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     
     @Autowired
     private SubjectValidation subjectValidation;
@@ -34,8 +38,12 @@ public class CreateTeacher {
         List<Long> subjectIds = teacherEntity.getTeacherSubjects();
         subjectValidation.validateSubjectsExist(subjectIds);
 
-        // Se todos os assuntos (subjects) existirem, salva o professor
+        var password = passwordEncoder.encode(teacherEntity.getTeacherPassword());
+        teacherEntity.setTeacherPassword(password);
+
         return this.teacherRepository.save(teacherEntity);
     }
+
+    
         
 }
