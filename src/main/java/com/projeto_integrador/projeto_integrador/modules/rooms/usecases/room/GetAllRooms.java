@@ -16,19 +16,8 @@ import java.util.HashMap;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEntity;
+
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomTypeEntity;
-import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
-import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
-import com.projeto_integrador.projeto_integrador.modules.subjects.entity.SubjectEntity;
-import com.projeto_integrador.projeto_integrador.modules.subjects.repository.SubjectRepository;
-import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
-import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
-import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
-import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
-import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
-
-
 
 @Service
 public class GetAllRooms {

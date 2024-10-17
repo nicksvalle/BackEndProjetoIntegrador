@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@EqualsAndHashCode(of = "idStudent")
+@EqualsAndHashCode(of = "studentId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "students")
@@ -26,7 +26,7 @@ public class StudentEntity {
     @Id
     @Column(name = "student_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idStudent;
+    private Long studentId;
 
     @NotBlank
     @Length(max = 100, message = "the fied [studentName] must have 100 characters")

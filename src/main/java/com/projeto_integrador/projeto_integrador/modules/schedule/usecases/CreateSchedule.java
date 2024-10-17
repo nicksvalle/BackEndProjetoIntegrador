@@ -8,8 +8,6 @@ import com.projeto_integrador.projeto_integrador.modules.schedule.ScheduleValida
 import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
 import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
 
-import lombok.val;
-
 @Service
 public class CreateSchedule {
     
