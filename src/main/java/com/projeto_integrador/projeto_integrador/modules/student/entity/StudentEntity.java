@@ -1,5 +1,7 @@
 package com.projeto_integrador.projeto_integrador.modules.student.entity;
 
+import java.time.LocalDateTime;
+
 import org.hibernate.validator.constraints.Length;
 
 import jakarta.persistence.Column;
@@ -42,4 +44,7 @@ public class StudentEntity {
     @Length(min = 8, max = 255, message = "the field [studentPassword] must have between 8 to 100 characters")
     @Column(name = "student_password")
     private String studentPassword;
+
+    @Column(name = "reset_token")
+    private String resetToken;
 }
