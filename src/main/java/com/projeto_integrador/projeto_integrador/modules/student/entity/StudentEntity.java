@@ -44,7 +44,4 @@ public class StudentEntity {
     @Length(min = 8, max = 255, message = "the field [studentPassword] must have between 8 to 100 characters")
     @Column(name = "student_password")
     private String studentPassword;
-
-    @Column(name = "reset_token")
-    private String resetToken;
 }
