@@ -2,8 +2,6 @@ package com.projeto_integrador.projeto_integrador.modules.student.controller;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
-import java.util.UUID;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

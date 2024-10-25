@@ -1,6 +1,5 @@
 package com.projeto_integrador.projeto_integrador.modules.student.entity;
 
-import java.time.LocalDateTime;
 
 import org.hibernate.validator.constraints.Length;
 
