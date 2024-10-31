@@ -21,11 +21,11 @@ public class ProjetoIntegradorApplication {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**") // Permite CORS em todos os endpoints
-                        .allowedOrigins("http://localhost:3000") // Configura a origem permitida
-                        .allowedMethods("GET", "POST", "PUT", "DELETE") // Métodos HTTP permitidos
-                        .allowedHeaders("*") // Permite todos os headers
-                        .allowCredentials(true); // Permite cookies e autenticação
+                registry.addMapping("/**")
+                        .allowedOrigins("http://localhost:8081")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE") 
+                        .allowedHeaders("*") 
+                        .allowCredentials(true); 
             }
         };
     }
