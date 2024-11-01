@@ -1,5 +1,6 @@
-package com.projeto_integrador.projeto_integrador.modules.schedule.entity;
+package com.projeto_integrador.projeto_integrador.modules.reservation.entity;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -20,45 +21,46 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 @Data
 @Builder
-@EqualsAndHashCode(of = "ScheduleId")
+@EqualsAndHashCode(of = "reservationId")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity(name = "schedules")
-public class ScheduleEntity {
+@Entity(name = "reservations")
+public class ReservationEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "schedule_id")
-    private Long ScheduleId;
+    @Column(name = "reservation_id")
+    private Long reservationId;
 
     @NotNull
     @Column(name = "teacher")
-    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Professor do horário")
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Professor da reserva")
     private Long teacher;
 
     @NotNull
     @Column(name = "subject")
-    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Matéria do horário")
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Matéria da reserva")
     private Long subject;
 
     @NotNull
     @Column(name = "time")
-    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Hora do horário")
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Horario da reserva")
     private Long time;
 
+    @NotNull
+    @Column(name = "date")
+    @Schema(example = "2024-10-17", requiredMode = RequiredMode.REQUIRED, description = "Data da reserva")
+    private Date date;
+
+    @NotNull
     @Column(name = "room")
-    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Sala do horário")
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Sala da reserva")
     private Long room;
 
     @NotNull
     @Column(name = "course")
-    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Curso do horário")
+    @Schema(example = "1", requiredMode = RequiredMode.REQUIRED, description = "Curso da reserva")
     private Long course;
-
-    @NotNull
-    @Column(name = "weekday")
-    @Schema(example = "Segunda-Feira", requiredMode = RequiredMode.REQUIRED, description = "Dia da semana")
-    private String weekDay;
 
     @CreationTimestamp
     private LocalDateTime create_at;

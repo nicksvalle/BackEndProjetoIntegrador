@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.stereotype.Service;
 
-import com.projeto_integrador.projeto_integrador.modules.schedule.ScheduleValidation;
 import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
 import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
 
@@ -18,7 +17,7 @@ public class PutScheduleById {
     ScheduleRepository repository;
 
     @Autowired
-    private ScheduleValidation validation;
+    private FKValidation validation;
     
     public ScheduleEntity execute(Long id, ScheduleEntity scheduleEntity){
         
@@ -46,6 +45,7 @@ public class PutScheduleById {
         updateSchedule.setSubject(scheduleEntity.getSubject());
         updateSchedule.setRoom(scheduleEntity.getRoom());
         updateSchedule.setCourse(scheduleEntity.getCourse());
+        updateSchedule.setWeekDay(scheduleEntity.getWeekDay());
 
 
         return this.repository.save(updateSchedule);
