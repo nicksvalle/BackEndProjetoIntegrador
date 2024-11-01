@@ -81,12 +81,12 @@ public class AdminController {
       }),
       @ApiResponse(responseCode = "400", description = "Admin not Found")
     })
-    public ResponseEntity<List<AdminEntity>> getAllAdmins() {
+    public ResponseEntity<Object> getAllAdmins() {
        try {
             var result = this.getAllAdmins.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Admin not Register");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
