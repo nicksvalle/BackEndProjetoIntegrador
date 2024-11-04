@@ -135,9 +135,14 @@ public class ReservationController {
       }),
       @ApiResponse(responseCode = "400", description = "Reserva não existe")
     })
-    public ResponseEntity<Void> deleteReservation(@Valid @PathVariable Long id) {
-        this.deleteReservationById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteReservation(@Valid @PathVariable Long id) {
+        try {
+            this.deleteReservationById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        
     }
 
 

@@ -130,9 +130,14 @@ public class CourseController {
       }),
       @ApiResponse(responseCode = "400", description = "Curso não existe")
     })
-    public ResponseEntity<Void> deleteCourse(@Valid @PathVariable Long id) {
-        this.deleteCourseById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteCourse(@Valid @PathVariable Long id) {
+
+        try {
+            this.deleteCourseById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

@@ -59,41 +59,46 @@ public class SubjectController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<SubjectEntity>> getAllSubjects() {
+    public ResponseEntity<Object> getAllSubjects() {
        try {
             var result = this.getAllSubjects.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Subject not Register");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SubjectEntity> getById(@Valid @PathVariable long id){
+    public ResponseEntity<Object> getById(@Valid @PathVariable long id){
        try {
-        var subject = this.getSubjectById.execute(id);
-        return ResponseEntity.ok().body(subject);
+            var subject = this.getSubjectById.execute(id);
+            return ResponseEntity.ok().body(subject);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Subject not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
         
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<SubjectEntity> putSubject(@Valid @RequestBody SubjectEntity subjectEntity, @PathVariable Long id) {
+    public ResponseEntity<Object> putSubject(@Valid @RequestBody SubjectEntity subjectEntity, @PathVariable Long id) {
         try {
             var updatedSubject = this.putSubjectById.execute(id, subjectEntity);
             return ResponseEntity.ok().body(updatedSubject);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Subject not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSubject(@Valid @PathVariable Long id) {
-        this.deleteSubjectById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteSubject(@Valid @PathVariable Long id) {
+        
+        try {           
+            this.deleteSubjectById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

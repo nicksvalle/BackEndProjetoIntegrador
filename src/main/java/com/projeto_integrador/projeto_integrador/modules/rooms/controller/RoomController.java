@@ -83,12 +83,12 @@ public class RoomController {
       }),
       @ApiResponse(responseCode = "400", description = "Sala/Lab não existe")
     })
-    public ResponseEntity<List<Map<String, Object>>> getAllRooms() {
+    public ResponseEntity<Object> getAllRooms() {
        try {
             var result = this.getAllRooms.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Room not Registered");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
@@ -135,9 +135,13 @@ public class RoomController {
       }),
       @ApiResponse(responseCode = "400", description = "Sala/Lab não existe")
     })
-    public ResponseEntity<Void> deleteRoom(@Valid @PathVariable Long id) {
-        this.deleteRoomById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteRoom(@Valid @PathVariable Long id) {
+        try {
+            this.deleteRoomById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Data
 @Builder
-@EqualsAndHashCode(of = "TimeId")
+@EqualsAndHashCode(of = "timeId")
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "times")
@@ -28,7 +28,7 @@ public class TimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "time_id")
-    private Long TimeId;
+    private Long timeId;
 
     @NotBlank
     @Column(name = "start_time")

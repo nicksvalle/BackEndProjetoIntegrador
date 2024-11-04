@@ -93,9 +93,13 @@ public class TeacherController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTeacher(@Valid @PathVariable Long id) {
-        this.deleteTeacherById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteTeacher(@Valid @PathVariable Long id) {
+        try {   
+            this.deleteTeacherById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

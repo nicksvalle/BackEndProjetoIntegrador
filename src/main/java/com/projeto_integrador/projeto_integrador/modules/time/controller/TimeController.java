@@ -59,41 +59,45 @@ public class TimeController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<TimeEntity>> getAllTimes() {
+    public ResponseEntity<Object> getAllTimes() {
        try {
             var result = this.getAllTimes.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Time not Registered");
+        return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TimeEntity> getById(@Valid @PathVariable long id){
+    public ResponseEntity<Object> getById(@Valid @PathVariable long id){
        try {
-        var time = this.getTimeById.execute(id);
-        return ResponseEntity.ok().body(time);
+            var time = this.getTimeById.execute(id);
+            return ResponseEntity.ok().body(time);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Time not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
         
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<TimeEntity> putTime(@Valid @RequestBody TimeEntity timeEntity, @PathVariable Long id) {
+    public ResponseEntity<Object> putTime(@Valid @RequestBody TimeEntity timeEntity, @PathVariable Long id) {
         try {
             var updatedTime = this.putTimeById.execute(id, timeEntity);
             return ResponseEntity.ok().body(updatedTime);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Time not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteTime(@Valid @PathVariable Long id) {
-        this.deleteTimeById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteTime(@Valid @PathVariable Long id) {    
+        try {           
+            this.deleteTimeById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

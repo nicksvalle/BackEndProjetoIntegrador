@@ -66,41 +66,47 @@ public class StudentController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<List<StudentEntity>> getAllStudents() {
+    public ResponseEntity<Object> getAllStudents() {
        try {
             var result = this.getAllStudents.execute();
             return ResponseEntity.ok().body(result);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Student not Register");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StudentEntity> getById(@Valid @PathVariable Long id){
+    public ResponseEntity<Object> getById(@Valid @PathVariable Long id){
        try {
         var student = this.getStudentById.execute(id);
         return ResponseEntity.ok().body(student);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Student not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
         
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<StudentEntity> putStudent(@Valid @RequestBody StudentEntity studentEntity, @PathVariable Long id) {
+    public ResponseEntity<Object> putStudent(@Valid @RequestBody StudentEntity studentEntity, @PathVariable Long id) {
         try {
             var updatedStudent = this.putStudentById.execute(id, studentEntity);
             return ResponseEntity.ok().body(updatedStudent);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Student not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteStudent(@Valid @PathVariable Long id) {
-        this.deleteStudentById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteStudent(@Valid @PathVariable Long id) {
+       
+        try {
+            this.deleteStudentById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+        
     }
     
     @PostMapping("/forgot-password")

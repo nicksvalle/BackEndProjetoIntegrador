@@ -135,9 +135,13 @@ public class ScheduleController {
       }),
       @ApiResponse(responseCode = "400", description = "Horário não existe")
     })
-    public ResponseEntity<Void> deleteSchedule(@Valid @PathVariable Long id) {
-        this.deleteScheduleById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteSchedule(@Valid @PathVariable Long id) {
+        try {
+            this.deleteScheduleById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
 

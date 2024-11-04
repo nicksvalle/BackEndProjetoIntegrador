@@ -99,12 +99,12 @@ public class AdminController {
       }),
       @ApiResponse(responseCode = "400", description = "Admin not found")
     })
-    public ResponseEntity<AdminEntity> getById(@Valid @PathVariable Long id){
+    public ResponseEntity<Object> getById(@Valid @PathVariable Long id){
        try {
         var admin = this.getAdminById.execute(id);
         return ResponseEntity.ok().body(admin);
        } catch (Exception e) {
-            throw new EntityNotFoundException("Admin not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
        }
         
     }
@@ -118,12 +118,12 @@ public class AdminController {
       }),
       @ApiResponse(responseCode = "400", description = "Admin not found")
     })
-    public ResponseEntity<AdminEntity> putAdmin(@Valid @RequestBody AdminEntity adminEntity, @PathVariable Long id) {
+    public ResponseEntity<Object> putAdmin(@Valid @RequestBody AdminEntity adminEntity, @PathVariable Long id) {
         try {
             var updatedAdmin = this.putAdminById.execute(id, adminEntity);
             return ResponseEntity.ok().body(updatedAdmin);
         } catch (Exception e) {
-            throw new EntityNotFoundException("Admin not found");
+            return ResponseEntity.badRequest().body(e.getMessage());
         }
         
     }
@@ -135,9 +135,13 @@ public class AdminController {
       }),
       @ApiResponse(responseCode = "400", description = "Admin not found")
     })
-    public ResponseEntity<Void> deleteAdmin(@Valid @PathVariable Long id) {
-        this.deleteAdminById.execute(id);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<Object> deleteAdmin(@Valid @PathVariable Long id) {
+        try {
+            this.deleteAdminById.execute(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     
