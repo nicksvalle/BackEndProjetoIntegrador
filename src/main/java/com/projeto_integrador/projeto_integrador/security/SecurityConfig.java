@@ -15,10 +15,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableMethodSecurity
 public class SecurityConfig {
 
-
-
     @Autowired
-    SecurityStudentFilter securityStudentFilter;
+    SecurityFilter securityFilter;
 
     private static final String[] PERMIT_ALL_LIST = {
         "/swagger-ui/**",
@@ -46,14 +44,12 @@ public class SecurityConfig {
                 .requestMatchers("/teacher/auth").permitAll()
                 .requestMatchers("/student/auth").permitAll()
                 .requestMatchers("/student/forgot-password").permitAll()
-                .requestMatchers("/student/reset-password").permitAll()
                 .requestMatchers(PERMIT_ALL_LIST).permitAll()
                 .requestMatchers(PERMIT_TEMPORARILY).permitAll();
 
             auth.anyRequest().authenticated();
         })
-        .addFilterBefore(securityStudentFilter, BasicAuthenticationFilter.class);
-    
+        .addFilterBefore(securityFilter, BasicAuthenticationFilter.class);    
         return http.build();
     }
 
