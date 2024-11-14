@@ -1,6 +1,7 @@
 package com.projeto_integrador.projeto_integrador.modules.reservation.entity;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
@@ -50,7 +51,7 @@ public class ReservationEntity {
     @NotNull
     @Column(name = "date")
     @Schema(example = "2024-10-17", requiredMode = RequiredMode.REQUIRED, description = "Data da reserva")
-    private Date date;
+    private LocalDate date;
 
     @NotNull
     @Column(name = "room")

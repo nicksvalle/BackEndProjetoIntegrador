@@ -1,9 +1,9 @@
 package com.projeto_integrador.projeto_integrador.modules.subjects.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,6 @@ import com.projeto_integrador.projeto_integrador.modules.subjects.usecases.GetAl
 import com.projeto_integrador.projeto_integrador.modules.subjects.usecases.GetSubjectById;
 import com.projeto_integrador.projeto_integrador.modules.subjects.usecases.PutSubjectById;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -49,6 +48,7 @@ public class SubjectController {
     DeleteSubjectById deleteSubjectById;
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> create(@Valid @RequestBody SubjectEntity subjectEntity) {
         try {
             var result = this.createSubject.execute(subjectEntity);
@@ -59,6 +59,7 @@ public class SubjectController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getAllSubjects() {
        try {
             var result = this.getAllSubjects.execute();
@@ -69,6 +70,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getById(@Valid @PathVariable long id){
        try {
             var subject = this.getSubjectById.execute(id);
@@ -80,6 +82,7 @@ public class SubjectController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> putSubject(@Valid @RequestBody SubjectEntity subjectEntity, @PathVariable Long id) {
         try {
             var updatedSubject = this.putSubjectById.execute(id, subjectEntity);
@@ -91,6 +94,7 @@ public class SubjectController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteSubject(@Valid @PathVariable Long id) {
         
         try {           

@@ -9,6 +9,7 @@ import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 
 import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEntity;
@@ -57,11 +58,10 @@ public class GetReservationById {
         Long teacherId = reservation.getTeacher();
         Long timeId = reservation.getTime();
         Long courseId = reservation.getCourse();
-        Date date = reservation.getDate();
+        LocalDate date = reservation.getDate();
 
-        LocalDate localDate = date.toLocalDate();
 
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         String dayName = dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL, new Locale("pt", "BR"));
         
 

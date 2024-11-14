@@ -1,5 +1,9 @@
 package com.projeto_integrador.projeto_integrador.modules.reservation.usecases;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +20,9 @@ import com.projeto_integrador.projeto_integrador.modules.teacher.repository.Teac
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
 import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
+import com.projeto_integrador.projeto_integrador.modules.reservation.entity.ReservationEntity;
+import com.projeto_integrador.projeto_integrador.modules.reservation.repository.ReservationRepository;
+import com.projeto_integrador.projeto_integrador.modules.admin.usecases.AuthAdminUseCase;
 import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEntity;
 
 @Service
@@ -26,7 +33,7 @@ public class ReservationValidation {
     @Autowired
     private ScheduleRepository scheduleRepository;
 
-    @Autowired 
+    @Autowired
     private SubjectRepository subjectRepository;
 
     @Autowired
@@ -38,15 +45,50 @@ public class ReservationValidation {
     @Autowired
     private CourseRepository courseRepository;
 
-    public void searchConflictReservations(String weekDay, Long roomId, Long timeId){
+    @Autowired
+    private ReservationRepository reservationRepository;
 
-        Optional<ScheduleEntity> schedule = scheduleRepository.findByWeekDayAndTimeAndRoom(weekDay, timeId, roomId);
-
-        if (schedule.isPresent()){
-            throw new RuntimeException("Reservation unavailable");
+    public void searchConflictReservations(LocalDate date, String weekDay, Long roomId, Long timeId) {
+        TimeEntity newReservationTime = timeRepository.findById(timeId)
+                .orElseThrow(() -> new RuntimeException("Time not found"));
+    
+        LocalTime newStartTime = LocalTime.parse(newReservationTime.getStartTime(),
+                DateTimeFormatter.ofPattern("HH:mm"));
+        LocalTime newEndTime = LocalTime.parse(newReservationTime.getEndTime(), DateTimeFormatter.ofPattern("HH:mm"));
+    
+        List<ScheduleEntity> conflictingSchedules = scheduleRepository.findByWeekDayAndRoom(weekDay, roomId);
+    
+        for (ScheduleEntity schedule : conflictingSchedules) {
+            Long timeIdFromSchedule = schedule.getTime();
+    
+            TimeEntity scheduledTime = timeRepository.findById(timeIdFromSchedule)
+                    .orElseThrow(() -> new RuntimeException("Scheduled time not found"));
+    
+            LocalTime scheduledStartTime = LocalTime.parse(scheduledTime.getStartTime(),
+                    DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime scheduledEndTime = LocalTime.parse(scheduledTime.getEndTime(), DateTimeFormatter.ofPattern("HH:mm"));
+    
+            if (newStartTime.isBefore(scheduledEndTime) && newEndTime.isAfter(scheduledStartTime)) {
+                throw new RuntimeException("There is a conflict with an existing fixed schedule.");
+            }
         }
-        
-     
+
+        List<ReservationEntity> conflictingReservations = reservationRepository.findByDateAndRoom(date, roomId);
+    
+        for (ReservationEntity reservation : conflictingReservations) {
+            Long timeIdFromReservation = reservation.getTime();
+    
+            TimeEntity reservedTime = timeRepository.findById(timeIdFromReservation)
+                    .orElseThrow(() -> new RuntimeException("Reserved time not found"));
+    
+            LocalTime reservedStartTime = LocalTime.parse(reservedTime.getStartTime(),
+                    DateTimeFormatter.ofPattern("HH:mm"));
+            LocalTime reservedEndTime = LocalTime.parse(reservedTime.getEndTime(), DateTimeFormatter.ofPattern("HH:mm"));
+    
+            if (newStartTime.isBefore(reservedEndTime) && newEndTime.isAfter(reservedStartTime)) {
+                throw new RuntimeException("There is a conflict with an existing reservation.");
+            }
+        }
     }
 
     public void validateTimeExist(Long timeId) {

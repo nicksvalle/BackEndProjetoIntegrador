@@ -1,7 +1,5 @@
 package com.projeto_integrador.projeto_integrador.modules.student.dto;
 
-import java.util.List;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,9 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthStudentResponseDTO {
-    
-    private String access_token;
-    private Long expires_in;
-    private List<String> roles;
+public class ProfileStudentResponseDTO {
+    private Long studentId;
+    private String studentName;
+    private String institutionalEmail;
 }

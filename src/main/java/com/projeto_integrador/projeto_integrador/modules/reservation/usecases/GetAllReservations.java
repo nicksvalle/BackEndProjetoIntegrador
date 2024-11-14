@@ -62,13 +62,11 @@ public class GetAllReservations {
 
         Long subjectId = reservation.getSubject();
         Long teacherId = reservation.getTeacher();
-        Date date = reservation.getDate();
+        LocalDate date = reservation.getDate();
         Long timeId = reservation.getTime();
         Long courseId = reservation.getCourse();
 
-        LocalDate localDate = date.toLocalDate();
-
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         String dayName = dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL, new Locale("pt", "BR"));
 
         Optional<SubjectEntity> subject = subjectRepository.findById(subjectId);

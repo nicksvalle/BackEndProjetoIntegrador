@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.teacher.dto;
+package com.projeto_integrador.projeto_integrador.modules.admin.dto;
 
 import java.util.List;
 
@@ -11,8 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AuthTeacherResponseDTO {
-    
+public class AuthAdminResponseDTO {
     private String access_token;
     private Long expires_in;
     private List<String> roles;

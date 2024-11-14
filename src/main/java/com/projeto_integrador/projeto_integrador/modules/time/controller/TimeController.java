@@ -1,9 +1,9 @@
 package com.projeto_integrador.projeto_integrador.modules.time.controller;
 
-import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,7 +22,6 @@ import com.projeto_integrador.projeto_integrador.modules.time.usecases.GetAllTim
 import com.projeto_integrador.projeto_integrador.modules.time.usecases.GetTimeById;
 import com.projeto_integrador.projeto_integrador.modules.time.usecases.PutTimeById;
 
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 
 @RestController
@@ -49,6 +48,7 @@ public class TimeController {
     DeleteTimeById deleteTimeById;
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> create(@Valid @RequestBody TimeEntity timeEntity) {
         try {
             var result = this.createTime.execute(timeEntity);
@@ -59,6 +59,7 @@ public class TimeController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getAllTimes() {
        try {
             var result = this.getAllTimes.execute();
@@ -69,6 +70,7 @@ public class TimeController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getById(@Valid @PathVariable long id){
        try {
             var time = this.getTimeById.execute(id);
@@ -80,6 +82,7 @@ public class TimeController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> putTime(@Valid @RequestBody TimeEntity timeEntity, @PathVariable Long id) {
         try {
             var updatedTime = this.putTimeById.execute(id, timeEntity);
@@ -91,6 +94,7 @@ public class TimeController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteTime(@Valid @PathVariable Long id) {    
         try {           
             this.deleteTimeById.execute(id);

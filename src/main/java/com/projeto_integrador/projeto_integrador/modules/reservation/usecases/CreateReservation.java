@@ -27,6 +27,10 @@ public class CreateReservation {
 
     public ReservationEntity execute(ReservationEntity reservationEntity){
 
+        if (reservationEntity.getDate().isBefore(LocalDate.now())) {
+            throw new IllegalArgumentException("A data da reserva não pode ser no passado.");
+        }
+
         Long subjectId = reservationEntity.getSubject();
         fkValidation.validateSubjectExist(subjectId);
 
@@ -42,14 +46,12 @@ public class CreateReservation {
         Long courseId = reservationEntity.getCourse();
         fkValidation.validateCourseExist(courseId);
 
-        Date date = reservationEntity.getDate();
+        LocalDate date = reservationEntity.getDate();
 
-        LocalDate localDate = date.toLocalDate();
-
-        DayOfWeek dayOfWeek = localDate.getDayOfWeek();
+        DayOfWeek dayOfWeek = date.getDayOfWeek();
         String dayName = dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL, new Locale("pt", "BR"));
 
-        reservationValidation.searchConflictReservations(dayName, roomId, timeId);
+        reservationValidation.searchConflictReservations(date, dayName, roomId, timeId);
         
         return this.repository.save(reservationEntity);
     }

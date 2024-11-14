@@ -1,6 +1,6 @@
 package com.projeto_integrador.projeto_integrador.modules.schedule.repository;
 
-import java.util.Optional;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -9,6 +9,5 @@ import com.projeto_integrador.projeto_integrador.modules.schedule.entity.Schedul
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<ScheduleEntity, Long> {
-    Optional<ScheduleEntity> findByWeekDayAndTimeAndRoom(String weekDay, Long time, Long roomId);
-
+    List<ScheduleEntity> findByWeekDayAndRoom(String weekDay, Long roomId);
 }
