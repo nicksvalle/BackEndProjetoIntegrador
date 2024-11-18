@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class ReservationController {
     DeleteReservationById deleteReservationById;
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
     @Operation(summary = "Cadastro de reserva", description = "Essa função é responsável por cadastrar uma reserva")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -76,6 +78,7 @@ public class ReservationController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de reservas", description = "Essa função é responsável por listar todas as reservas")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -93,6 +96,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
     @Operation(summary = "Lista de um reserva por ID", description = "Essa função é responsável por listar uma reserva por ID")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -110,6 +114,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Alterar uma reserva", description = "Essa função é responsável por alterar uma reserva")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -128,6 +133,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Exclusão de reserva", description = "Essa função é responsável por excluir uma reserva")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {

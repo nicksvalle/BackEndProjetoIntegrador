@@ -6,6 +6,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,6 +60,7 @@ public class ScheduleController {
     DeleteScheduleById deleteScheduleById;
 
     @PostMapping("/")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Cadastro de horário", description = "Essa função é responsável por cadastrar um horário")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -76,6 +78,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de horário", description = "Essa função é responsável por listar todos os horários")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -93,6 +96,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de um horário por ID", description = "Essa função é responsável por listar um horário por ID")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -110,6 +114,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Alterar um horário", description = "Essa função é responsável por alterar um horário")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
@@ -128,6 +133,7 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Exclusão de horário", description = "Essa função é responsável por excluir um horário")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {
