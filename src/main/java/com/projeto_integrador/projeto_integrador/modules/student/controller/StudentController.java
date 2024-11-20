@@ -27,6 +27,8 @@ import com.projeto_integrador.projeto_integrador.modules.student.usecases.Profil
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.PutStudentById;
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.ResetPasswordService;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -34,6 +36,7 @@ import jakarta.validation.Valid;
 @RestController
 @RequestMapping("/student")
 @CrossOrigin
+@Tag(name = "Estudante", description = "Gerenciamento de estudantes no sistema")
 public class StudentController {
 
     @Autowired
@@ -60,6 +63,7 @@ public class StudentController {
     @Autowired
     private ProfileStudentUseCase profileStudentUseCase;
 
+    @Operation(summary = "Criar um novo estudante", description = "Endpoint para criação de estudantes no sistema")
     @PostMapping("/")
     public ResponseEntity<Object> create(@Valid @RequestBody StudentEntity studentEntity) {
         try {
@@ -70,6 +74,7 @@ public class StudentController {
         }
     }
 
+    @Operation(summary = "Listar todos os estudantes", description = "Retorna todos os estudantes registrados (somente administradores)")
     @GetMapping("/")
     @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
     public ResponseEntity<Object> getAllStudents(HttpServletRequest request) {
@@ -93,19 +98,19 @@ public class StudentController {
         }
     }
 
+    @Operation(summary = "Buscar estudante por ID", description = "Retorna os dados de um estudante específico pelo ID")
     @GetMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-
-    public ResponseEntity<Object> getById(@Valid @PathVariable Long id){
-       try {
-        var student = this.getStudentById.execute(id);
-        return ResponseEntity.ok().body(student);
-       } catch (Exception e) {
+    public ResponseEntity<Object> getById(@Valid @PathVariable Long id) {
+        try {
+            var student = this.getStudentById.execute(id);
+            return ResponseEntity.ok().body(student);
+        } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
-       }
-        
+        }
     }
 
+    @Operation(summary = "Atualizar dados do estudante", description = "Atualiza informações de um estudante pelo ID")
     @PutMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> putStudent(@Valid @RequestBody StudentEntity studentEntity, @PathVariable Long id) {
@@ -115,22 +120,21 @@ public class StudentController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        
     }
 
+    @Operation(summary = "Deletar estudante", description = "Remove um estudante do sistema pelo ID")
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteStudent(@Valid @PathVariable Long id) {
-       
         try {
             this.deleteStudentById.execute(id);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
-        
     }
-    
+
+    @Operation(summary = "Solicitar redefinição de senha", description = "Gera um token para redefinição de senha do estudante")
     @PostMapping("/forgot-password")
     public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
         String email = request.get("institutionalEmail");
@@ -144,7 +148,7 @@ public class StudentController {
         }
     }
 
-
+    @Operation(summary = "Redefinir senha", description = "Atualiza a senha do estudante usando um token de redefinição")
     @PostMapping("/reset-password")
     public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
         try {
@@ -154,5 +158,4 @@ public class StudentController {
             return ResponseEntity.badRequest().body("Invalid token or password.");
         }
     }
-    
 }
