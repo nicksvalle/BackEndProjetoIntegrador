@@ -63,7 +63,7 @@ public class TeacherController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT') or hasRole('TEACHER')")
     @Operation(
         summary = "Listar professores",
         description = "Lista todos os professores ou o perfil do professor autenticado. Disponível para administradores e professores.",
@@ -86,7 +86,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT') or hasRole('TEACHER')")
     @Operation(
         summary = "Obter professor por ID",
         description = "Recupera as informações de um professor pelo ID. Disponível apenas para administradores.",

@@ -96,7 +96,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de um reserva por ID", description = "Essa função é responsável por listar uma reserva por ID")
     @ApiResponses({
       @ApiResponse(responseCode = "200", content = {

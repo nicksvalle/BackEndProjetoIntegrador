@@ -59,7 +59,7 @@ public class SubjectController {
     }
 
     @GetMapping("/")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     public ResponseEntity<Object> getAllSubjects() {
        try {
             var result = this.getAllSubjects.execute();
@@ -70,7 +70,7 @@ public class SubjectController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT')")
     public ResponseEntity<Object> getById(@Valid @PathVariable long id){
        try {
             var subject = this.getSubjectById.execute(id);
