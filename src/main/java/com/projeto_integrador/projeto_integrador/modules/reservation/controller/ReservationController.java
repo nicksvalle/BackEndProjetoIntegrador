@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -60,6 +61,7 @@ public class ReservationController {
     DeleteReservationById deleteReservationById;
 
     @PostMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER')")
     @Operation(summary = "Cadastro de reserva", description = "Essa função é responsável por cadastrar uma reserva")
     @ApiResponses({
@@ -78,6 +80,7 @@ public class ReservationController {
     }
 
     @GetMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de reservas", description = "Essa função é responsável por listar todas as reservas")
     @ApiResponses({
@@ -96,6 +99,7 @@ public class ReservationController {
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de um reserva por ID", description = "Essa função é responsável por listar uma reserva por ID")
     @ApiResponses({
@@ -114,6 +118,7 @@ public class ReservationController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Alterar uma reserva", description = "Essa função é responsável por alterar uma reserva")
     @ApiResponses({
@@ -133,6 +138,7 @@ public class ReservationController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Exclusão de reserva", description = "Essa função é responsável por excluir uma reserva")
     @ApiResponses({

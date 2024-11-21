@@ -43,6 +43,7 @@ public class TeacherController {
     private ProfileTeacherUseCase profileTeacherUseCase;
 
     @PostMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
         summary = "Criar um novo professor",
@@ -63,6 +64,7 @@ public class TeacherController {
     }
 
     @GetMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT') or hasRole('TEACHER')")
     @Operation(
         summary = "Listar professores",
@@ -86,6 +88,7 @@ public class TeacherController {
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT') or hasRole('TEACHER')")
     @Operation(
         summary = "Obter professor por ID",
@@ -106,6 +109,7 @@ public class TeacherController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
         summary = "Atualizar professor",
@@ -126,6 +130,8 @@ public class TeacherController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(
         summary = "Deletar professor",

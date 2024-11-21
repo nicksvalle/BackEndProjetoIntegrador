@@ -31,6 +31,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
@@ -60,6 +61,7 @@ public class ScheduleController {
     DeleteScheduleById deleteScheduleById;
 
     @PostMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Cadastro de horário", description = "Essa função é responsável por cadastrar um horário")
     @ApiResponses({
@@ -78,6 +80,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de horário", description = "Essa função é responsável por listar todos os horários")
     @ApiResponses({
@@ -96,6 +99,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN') or hasRole('TEACHER') or hasRole('STUDENT')")
     @Operation(summary = "Lista de um horário por ID", description = "Essa função é responsável por listar um horário por ID")
     @ApiResponses({
@@ -114,6 +118,7 @@ public class ScheduleController {
     }
 
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Alterar um horário", description = "Essa função é responsável por alterar um horário")
     @ApiResponses({
@@ -133,6 +138,7 @@ public class ScheduleController {
     }
 
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     @Operation(summary = "Exclusão de horário", description = "Essa função é responsável por excluir um horário")
     @ApiResponses({

@@ -28,6 +28,7 @@ import com.projeto_integrador.projeto_integrador.modules.student.usecases.PutStu
 import com.projeto_integrador.projeto_integrador.modules.student.usecases.ResetPasswordService;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -65,6 +66,7 @@ public class StudentController {
 
     @Operation(summary = "Criar um novo estudante", description = "Endpoint para criação de estudantes no sistema")
     @PostMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     public ResponseEntity<Object> create(@Valid @RequestBody StudentEntity studentEntity) {
         try {
             var result = this.createStudent.execute(studentEntity);
@@ -76,6 +78,7 @@ public class StudentController {
 
     @Operation(summary = "Listar todos os estudantes", description = "Retorna todos os estudantes registrados (somente administradores)")
     @GetMapping("/")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('STUDENT') or hasRole('ADMIN')")
     public ResponseEntity<Object> getAllStudents(HttpServletRequest request) {
         try {
@@ -100,6 +103,7 @@ public class StudentController {
 
     @Operation(summary = "Buscar estudante por ID", description = "Retorna os dados de um estudante específico pelo ID")
     @GetMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> getById(@Valid @PathVariable Long id) {
         try {
@@ -112,6 +116,7 @@ public class StudentController {
 
     @Operation(summary = "Atualizar dados do estudante", description = "Atualiza informações de um estudante pelo ID")
     @PutMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> putStudent(@Valid @RequestBody StudentEntity studentEntity, @PathVariable Long id) {
         try {
@@ -124,6 +129,7 @@ public class StudentController {
 
     @Operation(summary = "Deletar estudante", description = "Remove um estudante do sistema pelo ID")
     @DeleteMapping("/{id}")
+    @SecurityRequirement(name = "jwt_auth")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Object> deleteStudent(@Valid @PathVariable Long id) {
         try {
