@@ -23,6 +23,8 @@ import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRep
 import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
 import com.projeto_integrador.projeto_integrador.modules.reservation.entity.ReservationEntity;
 import com.projeto_integrador.projeto_integrador.modules.reservation.repository.ReservationRepository;
+import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
+import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -43,6 +45,9 @@ public class GetAllReservations {
 
     @Autowired
     CourseRepository courseRepository;
+
+    @Autowired
+    RoomRepository roomRepository;
     
 
     public List<Map<String, Object>> execute() {
@@ -65,6 +70,7 @@ public class GetAllReservations {
         LocalDate date = reservation.getDate();
         Long timeId = reservation.getTime();
         Long courseId = reservation.getCourse();
+        Long roomId = reservation.getRoom();
 
         DayOfWeek dayOfWeek = date.getDayOfWeek();
         String dayName = dayOfWeek.getDisplayName(java.time.format.TextStyle.FULL, new Locale("pt", "BR"));
@@ -85,6 +91,10 @@ public class GetAllReservations {
         String courseText = course.map(c -> String.format("%s - %s", c.getCourseName(), c.getCourseSemester()))
                                     .orElse("Unknown Course");
 
+        Optional<RoomEntity> room = roomRepository.findById(roomId);
+        String roomText = room.map(r -> String.format("%s - %s", r.getRoomType(), r.getRoomNumber()))
+                                    .orElse("Unknown Course");
+
 
         result.put("subject", subjectName);
         result.put("teacher", teacherName);
@@ -92,6 +102,7 @@ public class GetAllReservations {
         result.put("weekDay", dayName);
         result.put("time", timeText);
         result.put("course", courseText);
+        result.put("room", roomText);
         return result;
     }
 }
