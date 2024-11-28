@@ -44,6 +44,7 @@ public class GetTeacherById {
         result.put("businessPhone", teacher.getBusinessPhone());
         result.put("researchLine", teacher.getResearchLine());
         result.put("teacherArea", teacher.getTeacherArea());
+        result.put("profilePhoto", teacher.getProfilePhoto());
 
         // Transformar IDs em nomes
         List<String> subjectNames = new ArrayList<>();

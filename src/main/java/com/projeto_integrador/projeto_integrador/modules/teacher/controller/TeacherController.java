@@ -79,9 +79,10 @@ public class TeacherController {
     @PreAuthorize("hasRole('ADMIN') or hasRole('STUDENT') or hasRole('TEACHER')")
     @Operation(summary = "Listar professores", description = "Lista todos os professores ou o perfil do professor autenticado. Disponível para administradores e professores.", security = @SecurityRequirement(name = "jwt_auth"))
     public ResponseEntity<?> getAllTeachers(HttpServletRequest request) {
-        var role = request.isUserInRole("ADMIN");
+        var admin = request.isUserInRole("ADMIN");
+        var student = request.isUserInRole("STUDENT");
         try {
-            if (role) {
+            if (admin || student) {
                 var allTeachers = this.getAllTeachers.execute();
                 return ResponseEntity.ok().body(allTeachers);
             } else {
@@ -153,10 +154,8 @@ public class TeacherController {
         @PathVariable Long id,
         @RequestPart("profilePhoto") MultipartFile profilePhoto) {
         try {
-            // Salvar a foto no sistema de arquivos
             String filePath = fileStorageService.saveFile(profilePhoto);
     
-            // Atualizar a entidade TeacherEntity com o caminho da foto
             profileTeacherUseCase.updatePhoto(id, filePath);
     
             return ResponseEntity.ok(Map.of("message", "Foto de perfil atualizada com sucesso!", "photoPath", filePath));
