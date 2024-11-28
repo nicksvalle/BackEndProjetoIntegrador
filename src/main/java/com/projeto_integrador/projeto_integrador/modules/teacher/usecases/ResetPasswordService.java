@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.student.usecases;
+package com.projeto_integrador.projeto_integrador.modules.teacher.usecases;
 
 import java.time.LocalDateTime;
 
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.projeto_integrador.projeto_integrador.modules.student.repository.PasswordResetTokenRepository;
-import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
+import com.projeto_integrador.projeto_integrador.modules.teacher.repository.PasswordResetTokenRepository;
+import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 
 @Service
 public class ResetPasswordService {
@@ -19,7 +19,7 @@ public class ResetPasswordService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private StudentRepository studentRepository;
+    private TeacherRepository teacherRepository;
 
     public void resetPassword(String token, String newPassword) {
         var resetToken = tokenRepository.findByToken(token)
@@ -29,9 +29,9 @@ public class ResetPasswordService {
             throw new IllegalArgumentException("Token has expired");
         }
 
-        var student = resetToken.getStudent();
-        student.setStudentPassword(passwordEncoder.encode(newPassword));
-        studentRepository.save(student);
+        var teacher = resetToken.getTeacher();
+        teacher.setTeacherPassword(passwordEncoder.encode(newPassword));
+        teacherRepository.save(teacher);
 
         tokenRepository.delete(resetToken);
     }

@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.student.usecases;
+package com.projeto_integrador.projeto_integrador.modules.teacher.usecases;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -9,16 +9,16 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @Service
-public class EmailService {
+public class EmailServiceTeacher {
 
-    private static final Logger logger = LoggerFactory.getLogger(EmailService.class);
+    private static final Logger logger = LoggerFactory.getLogger(EmailServiceTeacher.class);
     
     @Autowired
     private JavaMailSender mailSender;
 
     public void sendResetPasswordEmail(String toEmail, String token) {
         String subject = "Reset your password";
-        String resetUrl = "http://localhost:8080/student/reset-password?token=" + token;
+        String resetUrl = "http://localhost:8080/teacher/reset-password?token=" + token;
         String message = "To reset your password, click the link below:\n" + resetUrl;
 
         logger.info("Sending password reset email to: {}", toEmail);

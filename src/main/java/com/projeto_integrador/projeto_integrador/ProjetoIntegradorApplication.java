@@ -22,7 +22,7 @@ public class ProjetoIntegradorApplication {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:8081", "http://localhost:4200")
+                        .allowedOrigins("http://localhost:8081", "https://projeto-integrador-1v4i.onrender.com")
                         .allowedMethods("GET", "POST", "PUT", "DELETE") 
                         .allowedHeaders("*") 
                         .allowCredentials(true); 

@@ -15,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.projeto_integrador.projeto_integrador.modules.student.dto.ResetPasswordRequest;
 import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
 import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 import com.projeto_integrador.projeto_integrador.modules.teacher.usecases.*;
@@ -51,6 +52,10 @@ public class TeacherController {
     private ProfileTeacherUseCase profileTeacherUseCase;
     @Autowired
     private FileStorageService fileStorageService;
+    @Autowired
+    private ForgotPasswordTeacherService forgotPasswordTeacherService;
+    @Autowired
+    private ResetPasswordService resetPasswordService;
 
     @Autowired
     private TeacherRepository teacherRepository;
@@ -163,6 +168,31 @@ public class TeacherController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Map.of("error", "Professor não encontrado."));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @Operation(summary = "Solicitar redefinição de senha", description = "Gera um token para redefinição de senha do estudante")
+    @PostMapping("/forgot-password")
+    public ResponseEntity<String> forgotPassword(@RequestBody Map<String, String> request) {
+        String email = request.get("institutionalEmail");
+        try {
+            forgotPasswordTeacherService.generateResetToken(email);
+            return ResponseEntity.ok("Reset token sent to email");
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Teacher not found");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing request");
+        }
+    }
+
+    @Operation(summary = "Redefinir senha", description = "Atualiza a senha do estudante usando um token de redefinição")
+    @PostMapping("/reset-password")
+    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+        try {
+            resetPasswordService.resetPassword(request.getToken(), request.getNewPassword());
+            return ResponseEntity.ok("Password successfully reset.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Invalid token or password.");
         }
     }
 }

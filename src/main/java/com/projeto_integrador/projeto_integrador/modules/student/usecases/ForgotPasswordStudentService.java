@@ -6,23 +6,23 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.projeto_integrador.projeto_integrador.modules.student.entity.PasswordResetToken;
-import com.projeto_integrador.projeto_integrador.modules.student.repository.PasswordResetTokenRepository;
+import com.projeto_integrador.projeto_integrador.modules.student.entity.PasswordResetTokenStudent;
+import com.projeto_integrador.projeto_integrador.modules.student.repository.PasswordResetTokenStudentRepository;
 import com.projeto_integrador.projeto_integrador.modules.student.repository.StudentRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
-public class ForgotPasswordService {
+public class ForgotPasswordStudentService {
     
     @Autowired
     private StudentRepository studentRepository;
 
     @Autowired
-    private EmailService emailService;
+    private EmailServiceStudent emailService;
 
     @Autowired
-    private PasswordResetTokenRepository passwordRepository;
+    private PasswordResetTokenStudentRepository passwordRepository;
 
     public void generateResetToken(String email) {
         var student = studentRepository.findByInstitutionalEmail(email)
@@ -32,7 +32,7 @@ public class ForgotPasswordService {
 
         LocalDateTime expiryDate = LocalDateTime.now().plusHours(1);
 
-        PasswordResetToken passwordResetToken = new PasswordResetToken();
+        PasswordResetTokenStudent passwordResetToken = new PasswordResetTokenStudent();
         
         passwordResetToken.setToken(token);
         passwordResetToken.setStudent(student);

@@ -11,9 +11,9 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
 
-@Entity(name = "password_reset_token")
+@Entity(name = "password_reset_token_student")
 @Data
-public class PasswordResetToken {
+public class PasswordResetTokenStudent {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
