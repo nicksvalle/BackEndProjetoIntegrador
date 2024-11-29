@@ -89,14 +89,10 @@ public class GetAllSchedules {
                 .orElse("Unknown Course");
 
         Optional<RoomEntity> room = roomRepository.findById(roomId);
-        String roomText = room.map(r -> {
-            Long roomTypeId = r.getRoomType();
-            RoomTypeEntity roomType = roomTypeRepository.findById(roomTypeId).orElse(null);
-                                                                                            // pelo ID
-            String roomTypeDescription = roomType != null ? roomType.getRoomTypeDescription() : "Unknown Type";
-            return String.format("%s - %s", roomTypeDescription, r.getRoomNumber());
-        })
-                .orElse("Unknown Room");
+        String roomText = room.map(r -> String.format("%s - %s", r.getRoomNumber(), r.getRoomType()))
+                .orElse("Unknown Course");
+
+        
 
         result.put("subject", subjectName);
         result.put("teacher", teacherName);

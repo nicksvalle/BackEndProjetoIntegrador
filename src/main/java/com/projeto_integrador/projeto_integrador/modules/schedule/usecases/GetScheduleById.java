@@ -82,7 +82,7 @@ public class GetScheduleById {
         String roomText = room.map(r -> {
             Long roomTypeId = r.getRoomType();
             RoomTypeEntity roomType = roomTypeRepository.findById(roomTypeId).orElse(null);
-            // pelo ID
+
             String roomTypeDescription = roomType != null ? roomType.getRoomTypeDescription() : "Unknown Type";
             return String.format("%s - %s", roomTypeDescription, r.getRoomNumber());
         })
