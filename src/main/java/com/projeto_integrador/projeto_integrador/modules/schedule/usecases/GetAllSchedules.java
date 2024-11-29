@@ -19,12 +19,16 @@ import com.projeto_integrador.projeto_integrador.modules.teacher.repository.Teac
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
 import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
+import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
+import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomTypeEntity;
+import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
+import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomTypeRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
 @Service
 public class GetAllSchedules {
-    
+
     @Autowired
     ScheduleRepository scheduleRepository;
 
@@ -39,7 +43,12 @@ public class GetAllSchedules {
 
     @Autowired
     CourseRepository courseRepository;
-    
+
+    @Autowired
+    RoomRepository roomRepository;
+
+    @Autowired
+    RoomTypeRepository roomTypeRepository;
 
     public List<Map<String, Object>> execute() {
         var allSchedules = scheduleRepository.findAll();
@@ -48,8 +57,8 @@ public class GetAllSchedules {
         }
 
         return allSchedules.stream()
-                          .map(this::convertScheduleToMap)
-                          .collect(Collectors.toList());
+                .map(this::convertScheduleToMap)
+                .collect(Collectors.toList());
     }
 
     private Map<String, Object> convertScheduleToMap(ScheduleEntity schedule) {
@@ -60,31 +69,41 @@ public class GetAllSchedules {
         Long teacherId = schedule.getTeacher();
         Long timeId = schedule.getTime();
         Long courseId = schedule.getCourse();
+        Long roomId = schedule.getRoom();
         String weekDay = schedule.getWeekDay();
 
         Optional<SubjectEntity> subject = subjectRepository.findById(subjectId);
         String subjectName = subject.map(SubjectEntity::getSubjectName)
-                                    .orElse("Unknown Subject");
+                .orElse("Unknown Subject");
 
         Optional<TeacherEntity> teacher = teacherRepository.findById(teacherId);
         String teacherName = teacher.map(TeacherEntity::getTeacherName)
-                                    .orElse("Unknown Teacher");
+                .orElse("Unknown Teacher");
 
         Optional<TimeEntity> time = timeRepository.findById(timeId);
         String timeText = time.map(t -> String.format("%s - %s", t.getStartTime(), t.getEndTime()))
-                                    .orElse("Unknown Time");
+                .orElse("Unknown Time");
 
         Optional<CourseEntity> course = courseRepository.findById(courseId);
         String courseText = course.map(c -> String.format("%s - %s", c.getCourseName(), c.getCourseSemester()))
-                                    .orElse("Unknown Course");
+                .orElse("Unknown Course");
 
+        Optional<RoomEntity> room = roomRepository.findById(roomId);
+        String roomText = room.map(r -> {
+            Long roomTypeId = r.getRoomType();
+            RoomTypeEntity roomType = roomTypeRepository.findById(roomTypeId).orElse(null);
+                                                                                            // pelo ID
+            String roomTypeDescription = roomType != null ? roomType.getRoomTypeDescription() : "Unknown Type";
+            return String.format("%s - %s", roomTypeDescription, r.getRoomNumber());
+        })
+                .orElse("Unknown Room");
 
         result.put("subject", subjectName);
         result.put("teacher", teacherName);
         result.put("time", timeText);
         result.put("course", courseText);
         result.put("weekday", weekDay);
+        result.put("room", roomText);
         return result;
     }
 }
-
