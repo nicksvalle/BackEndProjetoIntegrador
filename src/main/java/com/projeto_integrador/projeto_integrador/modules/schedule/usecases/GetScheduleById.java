@@ -2,7 +2,6 @@ package com.projeto_integrador.projeto_integrador.modules.schedule.usecases;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,16 +10,9 @@ import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEn
 import com.projeto_integrador.projeto_integrador.modules.schedule.entity.ScheduleEntity;
 import com.projeto_integrador.projeto_integrador.modules.schedule.repository.ScheduleRepository;
 import com.projeto_integrador.projeto_integrador.modules.subjects.entity.SubjectEntity;
-import com.projeto_integrador.projeto_integrador.modules.subjects.repository.SubjectRepository;
 import com.projeto_integrador.projeto_integrador.modules.teacher.entity.TeacherEntity;
-import com.projeto_integrador.projeto_integrador.modules.teacher.repository.TeacherRepository;
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
-import com.projeto_integrador.projeto_integrador.modules.time.repository.TimeRepository;
-import com.projeto_integrador.projeto_integrador.modules.courses.repository.CourseRepository;
 import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomEntity;
-import com.projeto_integrador.projeto_integrador.modules.rooms.entity.RoomTypeEntity;
-import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomRepository;
-import com.projeto_integrador.projeto_integrador.modules.rooms.repository.RoomTypeRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -29,24 +21,6 @@ public class GetScheduleById {
 
     @Autowired
     ScheduleRepository scheduleRepository;
-
-    @Autowired
-    SubjectRepository subjectRepository;
-
-    @Autowired
-    TeacherRepository teacherRepository;
-
-    @Autowired
-    TimeRepository timeRepository;
-
-    @Autowired
-    CourseRepository courseRepository;
-
-    @Autowired
-    RoomRepository roomRepository;
-
-    @Autowired
-    RoomTypeRepository roomTypeRepository;
 
     public Map<String, Object> execute(Long id) {
         ScheduleEntity course = scheduleRepository.findById(id)
@@ -59,38 +33,19 @@ public class GetScheduleById {
         Map<String, Object> result = new HashMap<>();
         result.put("scheduleId", schedule.getScheduleId());
 
-        Long subjectId = schedule.getSubject();
-        Long teacherId = schedule.getTeacher();
-        Long timeId = schedule.getTime();
-        Long courseId = schedule.getCourse();
-        Long roomId = schedule.getRoom();
+        SubjectEntity subject = schedule.getSubject();
+        TeacherEntity teacher = schedule.getTeacher();
+        TimeEntity time = schedule.getTime();
+        CourseEntity course = schedule.getCourse();
+        RoomEntity room = schedule.getRoom();
         String weekDay = schedule.getWeekDay();
-
-        Optional<SubjectEntity> subject = subjectRepository.findById(subjectId);
-        String subjectName = subject.map(SubjectEntity::getSubjectName)
-                .orElse("Unknown Subject");
-
-        Optional<TeacherEntity> teacher = teacherRepository.findById(teacherId);
-        String teacherName = teacher.map(TeacherEntity::getTeacherName)
-                .orElse("Unknown Teacher");
-
-        Optional<TimeEntity> time = timeRepository.findById(timeId);
-        String timeText = time.map(t -> String.format("%s - %s", t.getStartTime(), t.getEndTime()))
-                .orElse("Unknown Time");
-
-        Optional<RoomEntity> room = roomRepository.findById(roomId);
-        String roomText = room.map(r -> {
-            Long roomTypeId = r.getRoomType();
-            RoomTypeEntity roomType = roomTypeRepository.findById(roomTypeId).orElse(null);
-
-            String roomTypeDescription = roomType != null ? roomType.getRoomTypeDescription() : "Unknown Type";
-            return String.format("%s - %s", roomTypeDescription, r.getRoomNumber());
-        })
-                .orElse("Unknown Room");
-
-        Optional<CourseEntity> course = courseRepository.findById(courseId);
-        String courseText = course.map(c -> String.format("%s - %s", c.getCourseName(), c.getCourseSemester()))
-                .orElse("Unknown Course");
+    
+        String subjectName = (subject != null) ? subject.getSubjectName() : "Unknown Subject";
+        String teacherName = (teacher != null) ? teacher.getTeacherName() : "Unknown Teacher";
+        String timeText = (time != null) ? String.format("%s - %s", time.getStartTime(), time.getEndTime()) : "Unknown Time";
+        String courseText = (course != null) ? String.format("%s - %s", course.getCourseName(), course.getCourseSemester()) : "Unknown Course";
+        
+        String roomText = (room != null) ? String.format("%s - %s", room.getRoomType() != null ? room.getRoomType().getRoomTypeDescription() : "Unknown Type", room.getRoomNumber()) : "Unknown Room";
 
         result.put("subject", subjectName);
         result.put("teacher", teacherName);
