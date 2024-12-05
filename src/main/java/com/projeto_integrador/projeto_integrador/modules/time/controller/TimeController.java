@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.projeto_integrador.projeto_integrador.modules.time.dto.TimeDTO;
 import com.projeto_integrador.projeto_integrador.modules.time.entity.TimeEntity;
 import com.projeto_integrador.projeto_integrador.modules.time.usecases.CreateTime;
 import com.projeto_integrador.projeto_integrador.modules.time.usecases.DeleteTimeById;
@@ -55,7 +56,7 @@ public class TimeController {
     @Operation(summary = "Cadastrar horário", description = "Essa função é responsável por cadastrar um novo horário")
     @ApiResponses({
         @ApiResponse(responseCode = "200", content = {
-            @Content(schema = @Schema(implementation = TimeEntity.class))
+            @Content(schema = @Schema(implementation = TimeDTO.class))
         }),
         @ApiResponse(responseCode = "400", description = "Erro ao cadastrar horário")
     })
@@ -112,7 +113,7 @@ public class TimeController {
     @Operation(summary = "Atualizar horário", description = "Essa função é responsável por atualizar um horário existente")
     @ApiResponses({
         @ApiResponse(responseCode = "200", content = {
-            @Content(schema = @Schema(implementation = TimeEntity.class))
+            @Content(schema = @Schema(implementation = TimeDTO.class))
         }),
         @ApiResponse(responseCode = "404", description = "Horário não encontrado")
     })
