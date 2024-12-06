@@ -1,11 +1,12 @@
 package com.projeto_integrador.projeto_integrador.modules.student.usecases;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Service
 public class EmailServiceStudent {
@@ -16,7 +17,7 @@ public class EmailServiceStudent {
     private JavaMailSender mailSender;
 
     public void sendResetPasswordEmail(String toEmail, String token) {
-        String subject = "Redefina sua senha";
+        String subject = "Redefinir senha";
         String message = "Para redefinir sua senha, copie o código abaixo:\n" + token;
 
         logger.info("Sending password reset email to: {}", toEmail);

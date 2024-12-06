@@ -19,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.projeto_integrador.projeto_integrador.modules.admin.entity.AdminEntity;
 import com.projeto_integrador.projeto_integrador.modules.admin.repository.AdminRepository;
-import com.projeto_integrador.projeto_integrador.modules.admin.usecases.PutAdminById;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -34,13 +33,11 @@ public class PutAdminByIdTest {
 
     @BeforeEach
     public void setUp() {
-        // Mockito cuidará da injeção das dependências
     }
 
     @Test
     @DisplayName("Should update and return AdminEntity when ID exists")
     public void shouldUpdateAdminWhenIdExists() {
-        // Arrange
         Long adminId = 1L;
         AdminEntity existingAdmin = new AdminEntity();
         existingAdmin.setAdminId(adminId);
@@ -56,10 +53,8 @@ public class PutAdminByIdTest {
         when(repository.findById(adminId)).thenReturn(Optional.of(existingAdmin));
         when(repository.save(any(AdminEntity.class))).thenReturn(existingAdmin);
 
-        // Act
         AdminEntity result = putAdminById.execute(adminId, updatedAdminData);
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.getAdminName()).isEqualTo("New Name");
         assertThat(result.getAdminEmail()).isEqualTo("new.email@example.com");
@@ -72,7 +67,6 @@ public class PutAdminByIdTest {
     @Test
     @DisplayName("Should throw EntityNotFoundException when ID does not exist")
     public void shouldThrowExceptionWhenIdDoesNotExist() {
-        // Arrange
         Long adminId = 1L;
         AdminEntity updatedAdminData = new AdminEntity();
         updatedAdminData.setAdminName("New Name");
@@ -81,12 +75,11 @@ public class PutAdminByIdTest {
 
         when(repository.findById(adminId)).thenReturn(Optional.empty());
 
-        // Act & Assert
         assertThatThrownBy(() -> putAdminById.execute(adminId, updatedAdminData))
             .isInstanceOf(EntityNotFoundException.class)
             .hasMessage("Admin not found");
 
         verify(repository, times(1)).findById(adminId);
-        verify(repository, never()).save(any(AdminEntity.class)); // Certifica-se que o método save não foi chamado
+        verify(repository, never()).save(any(AdminEntity.class)); 
     }
 }

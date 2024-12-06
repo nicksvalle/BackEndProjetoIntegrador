@@ -1,4 +1,4 @@
-package com.projeto_integrador.projeto_integrador.modules.schedule.usecases;
+package com.projeto_integrador.projeto_integrador.modules.schedule;
 
 import java.util.Optional;
 
@@ -17,7 +17,7 @@ import com.projeto_integrador.projeto_integrador.modules.courses.repository.Cour
 import com.projeto_integrador.projeto_integrador.modules.courses.entity.CourseEntity;
 
 @Service
-public class FKValidation {
+public class ScheduleValidation {
     @Autowired
     private TimeRepository timeRepository;
 

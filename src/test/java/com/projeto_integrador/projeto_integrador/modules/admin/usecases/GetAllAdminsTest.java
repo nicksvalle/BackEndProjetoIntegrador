@@ -1,25 +1,26 @@
 package com.projeto_integrador.projeto_integrador.modules.admin.usecases;
 
 
-import com.projeto_integrador.projeto_integrador.modules.admin.entity.AdminEntity;
-import com.projeto_integrador.projeto_integrador.modules.admin.repository.AdminRepository;
-import com.projeto_integrador.projeto_integrador.modules.admin.usecases.GetAllAdmins;
+import java.util.Collections;
+import java.util.List;
 
-import jakarta.persistence.EntityNotFoundException;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
+import com.projeto_integrador.projeto_integrador.modules.admin.entity.AdminEntity;
+import com.projeto_integrador.projeto_integrador.modules.admin.repository.AdminRepository;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.mockito.Mockito.*;
+import jakarta.persistence.EntityNotFoundException;
 
 @ExtendWith(MockitoExtension.class)
 public class GetAllAdminsTest {
@@ -32,7 +33,6 @@ public class GetAllAdminsTest {
 
     @BeforeEach
     public void setUp() {
-        // O Mockito cuidará da injeção de dependências
     }
 
     @Test
@@ -50,10 +50,8 @@ public class GetAllAdminsTest {
 
         when(repository.findAll()).thenReturn(admins);
 
-        // Act
         List<AdminEntity> result = getAllAdmins.execute();
 
-        // Assert
         assertThat(result).isNotNull();
         assertThat(result.size()).isEqualTo(2);
         assertThat(result.get(0).getAdminEmail()).isEqualTo("admin1@example.com");
@@ -65,10 +63,8 @@ public class GetAllAdminsTest {
     @Test
     @DisplayName("Should throw EntityNotFoundException when no admins are found")
     public void shouldThrowExceptionWhenNoAdminsFound() {
-        // Arrange
         when(repository.findAll()).thenReturn(Collections.emptyList());
 
-        // Act & Assert
         assertThatThrownBy(() -> getAllAdmins.execute())
             .isInstanceOf(EntityNotFoundException.class)
             .hasMessage("Admin not Register");
