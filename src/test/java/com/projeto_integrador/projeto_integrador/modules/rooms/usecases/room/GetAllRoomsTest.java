@@ -36,7 +36,6 @@ class GetAllRoomTest {
 
     @Test
     void shouldReturnRoomListWhenRoomsExist() {
-        // Arrange: Criando uma sala fictícia
         RoomEntity room = new RoomEntity();
         room.setRoomId(1L);
         room.setRoomCapacity("30");
@@ -44,29 +43,25 @@ class GetAllRoomTest {
         room.setRoomResources("Projector, Whiteboard");
         room.setRoomAvailability("Livre");
 
-        // Criando o tipo de sala fictícia
         RoomTypeEntity roomType = new RoomTypeEntity();
         roomType.setRoomTypeId(1L);
         roomType.setRoomTypeDescription("Classroom");
-        roomType.setCreatedAt(LocalDateTime.now());
-        roomType.setUpdatedAt(LocalDateTime.now());
+        roomType.setCreate_at(LocalDateTime.now());
+        roomType.setUpdate_at(LocalDateTime.now());
 
-        room.setRoomType(roomType);  // Associando o tipo da sala à sala
+        room.setRoomType(roomType);
 
-        // Simulando a resposta do repositório
         when(roomRepository.findAll()).thenReturn(List.of(room));
         when(roomTypeRepository.findById(1L)).thenReturn(Optional.of(roomType));
 
-        // Act: Executar o método
         List<Map<String, Object>> result = getAllRooms.execute();
 
-        // Assert: Verificando se os valores estão corretos
         assertNotNull(result);
-        assertEquals(1, result.size());  // Esperamos uma sala
+        assertEquals(1, result.size());
         Map<String, Object> roomData = result.get(0);
         assertEquals(1L, roomData.get("roomId"));
         assertEquals("30", roomData.get("roomCapacity"));
-        assertEquals("Classroom", roomData.get("roomType"));  // O tipo da sala deve ser "Classroom"
+        assertEquals("Classroom", roomData.get("roomType"));
         assertEquals("2", roomData.get("roomFloor"));
         assertEquals("Projector, Whiteboard", roomData.get("roomResources"));
         assertEquals("Livre", roomData.get("roomAvailability"));
@@ -74,10 +69,8 @@ class GetAllRoomTest {
 
     @Test
     void shouldThrowExceptionWhenNoRoomsExist() {
-        // Arrange: Simulando que não há salas
         when(roomRepository.findAll()).thenReturn(List.of());
 
-        // Act & Assert: Verificando se a exceção é lançada quando não há salas
         EntityNotFoundException thrown = assertThrows(EntityNotFoundException.class, () -> {
             getAllRooms.execute();
         });

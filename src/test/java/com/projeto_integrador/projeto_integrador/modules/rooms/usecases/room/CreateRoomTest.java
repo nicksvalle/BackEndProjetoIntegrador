@@ -82,7 +82,6 @@ class CreateRoomTest {
         // Verificar a mensagem da exceção
         assertEquals("O tipo de sala é obrigatório", exception.getMessage());
 
-        // Verificar se o método save não foi chamado
         verify(roomRepository, never()).save(any(RoomEntity.class));
     }
 }

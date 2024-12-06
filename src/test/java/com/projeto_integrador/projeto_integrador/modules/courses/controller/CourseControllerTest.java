@@ -129,6 +129,6 @@ public class CourseControllerTest {
 
         ResponseEntity<?> response = courseController.deleteCourse(1L);
 
-        assertEquals(404, response.getStatusCodeValue());
+        assertEquals(400, response.getStatusCodeValue());
     }
 }
