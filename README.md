@@ -1,21 +1,48 @@
-# API DE GRADE DE HORÁRIO
+# API de Grade de Horário - Sistema de Gestão de Laboratórios da Fatec Itu
 
-Este projeto apresenta o desenvolvimento de um sistema de gestão de reservas de laboratórios para a Faculdade Fatec Itu, com o objetivo de otimizar o uso e o gerenciamento dos espaços educacionais. A solução foi estruturada para atender às necessidades de alunos, professores e administradores, abrangendo funcionalidades específicas para cada perfil de usuário.
+Este projeto é uma solução para a gestão de reservas de laboratórios na Fatec Itu. A aplicação foi projetada para otimizar o uso dos espaços educacionais, oferecendo funcionalidades que atendem às necessidades de diferentes usuários: alunos, professores e administradores.
 
+## Funcionalidades
 
-## Deploy
+- **Cadastro de usuários**: Permite registrar alunos, professores e administradores com perfis distintos.
+- **Reserva de horários**: Gerencia o agendamento de laboratórios de forma eficiente.
+- **Visualização de reservas**: Exibe as reservas ativas e horários disponíveis.
+- **Documentação interativa**: Inclui integração com Swagger para facilitar o uso e testes da API.
 
-Para fazer o deploy desse projeto você deve ter primeiramente o Docker Desktop instalado na sua máquina. Após o Docker instalado e configurado e ter feito o clone do projeto, rode os seguintes códigos:
+## Tecnologias Utilizadas
 
-1. Para iniciar e executar todos os serviços definidos no arquivo ```docker-compose```:
-```bash
+- **Linguagem**: Java (Spring Boot)
+- **Banco de Dados**: PostgreSQL
+- **Containerização**: Docker com Docker Compose
+- **Documentação**: Swagger UI
+
+## Requisitos para Deploy
+
+- **Docker Desktop** instalado e configurado.
+- Ambiente de desenvolvimento recomendado: **Visual Studio Code** ou **Eclipse**.
+
+## Passo a Passo para Deploy
+
+1. **Clone o repositório**:
+   ```bash
+   git clone <URL_DO_REPOSITORIO>
+   cd <PASTA_DO_PROJETO>
+   ```
+2. **Suba os containers com Docker Compose**:
+
+  ```bash
   docker-compose up -d
-```
-2. É aconcelhado usar um ambiente de desenvolvimento como um Visual Code ou Eclipse.
+  ```
 
-3. Para facilitar a visualização do projeto foi realizado uma documentação em Swagger, para acessar cole essa URL no navegador:
+## Estrutura do Projeto
 
-```http
-  http://localhost:8080/swagger-ui/index.html/
-```
+- **src/main**: Contém o código principal do projeto, incluindo os controladores, serviços e modelos.
+- **docker-compose.yml**: Arquivo de configuração para subir os serviços necessários (banco de dados e API).
+- **application.properties**: Configurações do Spring Boot.
 
+### Contato
+
+Se tiver dúvidas ou sugestões, entre em contato:
+
+- **Email**: [nicolasdeoliveiravalle@gmail.com](mailto:nicolasdeoliveiravalle@gmail.com)  
+- **LinkedIn**: [Nicolas Valle](www.linkedin.com/in/nicolas-valle-620b29219)
