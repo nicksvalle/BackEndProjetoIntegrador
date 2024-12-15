@@ -44,5 +44,10 @@ Este projeto é uma solução para a gestão de reservas de laboratórios na Fat
 
 Se tiver dúvidas ou sugestões, entre em contato:
 
-- **Email**: [nicolasdeoliveiravalle@gmail.com](mailto:nicolasdeoliveiravalle@gmail.com)  
+Nicolas de Oliveira Valle:
+- **Email**: [nicolasdeoliveiravalle@gmail.com](mailto:matheusmarqsilva@gmail.com)  
 - **LinkedIn**: [Nicolas Valle](www.linkedin.com/in/nicolas-valle-620b29219)
+
+Matheus Marques da Silva:
+- **Email**: [matheusmarqsilva@gmail.com](mailto:nicolasdeoliveiravalle@gmail.com)  
+- **LinkedIn**: [Matheus Marques](www.linkedin.com/in/matheus-marques-5b3aa0222)
